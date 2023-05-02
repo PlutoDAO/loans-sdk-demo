@@ -1,0 +1,53 @@
+{
+  "name": "loans-sdk-demo",
+  "private": false,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "check": "svelte-check --tsconfig ./tsconfig.json",
+    "lint:fix": "eslint --fix --ext .ts --ext .svelte . && prettier --config .prettierrc --write . && npm run check",
+    "prepare": "husky install && chmod ug+x .husky/*",
+    "test": "vitest src",
+    "test:ui:dev": "cypress open",
+    "test:ui:headless": "cypress run"
+  },
+  "lint-staged": {
+    "*.{svelte,js,ts}": "npm run lint:fix"
+  },
+  "test": {
+    "testEnvironment": "jsdom"
+  },
+  "devDependencies": {
+    "@esbuild-plugins/node-globals-polyfill": "^0.2.3",
+    "@sveltejs/vite-plugin-svelte": "^2.0.4",
+    "@testing-library/cypress": "^9.0.0",
+    "@trivago/prettier-plugin-sort-imports": "^4.1.1",
+    "@tsconfig/svelte": "^3.0.0",
+    "@typescript-eslint/eslint-plugin": "^5.57.1",
+    "@typescript-eslint/parser": "^5.57.1",
+    "cypress": "^12.9.0",
+    "eslint": "^8.37.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-svelte3": "^4.0.0",
+    "husky": "^8.0.3",
+    "jsdom": "^21.1.1",
+    "lint-staged": "^13.2.1",
+    "prettier": "^2.8.7",
+    "prettier-plugin-svelte": "^2.10.0",
+    "rollup-plugin-node-polyfills": "^0.2.1",
+    "svelte": "^3.55.1",
+    "svelte-check": "^2.10.3",
+    "svelte-navigator": "^3.2.2",
+    "svelte-preprocess": "^5.0.3",
+    "tslib": "^2.5.0",
+    "typescript": "^4.9.3",
+    "vite": "^4.2.0",
+    "vitest": "^0.29.8"
+  }
+}

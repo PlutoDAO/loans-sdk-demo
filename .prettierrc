@@ -1,0 +1,12 @@
+{
+  "htmlWhitespaceSensitivity": "css",
+  "semi": true,
+  "singleQuote": true,
+  "trailingComma": "all",
+  "svelteStrictMode": false,
+  "svelteSortOrder": "options-scripts-markup-styles",
+  "svelteAllowShorthand": false,
+  "importOrder": ["^@core/(.*)$", "^@server/(.*)$", "^@ui/(.*)$", "^[./]"],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true
+}
