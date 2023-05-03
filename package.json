@@ -49,5 +49,8 @@
     "typescript": "^4.9.3",
     "vite": "^4.2.0",
     "vitest": "^0.29.8"
+  },
+  "dependencies": {
+    "pluto-loans-sdk": "^1.0.1"
   }
 }
