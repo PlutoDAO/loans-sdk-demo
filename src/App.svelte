@@ -5,5 +5,10 @@
 </script>
 
 <Router primary={false}>
-  <Route path="/" component={Home} />
+  <main class="main-container">
+    <Route path="/" component={Home} />
+  </main>
 </Router>
+
+<style>
+</style>
