@@ -30,12 +30,12 @@ export default defineConfig({
   build: {
     target: 'esnext',
     assetsInlineLimit: 0,
-    // rollupOptions: {
-    //   plugins: [
-    //     // Enable rollup polyfills plugin
-    //     // used during production bundling
-    //     rollupNodePolyFill(),
-    //   ],
-    // },
+    rollupOptions: {
+      plugins: [
+        // Enable rollup polyfills plugin
+        // used during production bundling
+        rollupNodePolyFill(),
+      ],
+    },
   },
 });
