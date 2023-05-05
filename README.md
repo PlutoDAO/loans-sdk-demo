@@ -1,1 +1,0 @@
-# loans-sdk-demo
