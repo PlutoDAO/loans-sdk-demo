@@ -6,7 +6,7 @@
 
 <Router primary={false}>
   <main class="main-container">
-    <Route path="/" component={Home} />
+    <Route path="/loans-sdk-demo" component={Home} />
   </main>
 </Router>
 
