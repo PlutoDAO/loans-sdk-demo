@@ -1,4 +1,5 @@
 {
+  "homepage": "https://plutodao.github.io/loans-sdk-demo/",
   "name": "loans-sdk-demo",
   "private": false,
   "version": "0.0.0",
@@ -12,7 +13,8 @@
     "prepare": "husky install && chmod ug+x .husky/*",
     "test": "vitest src",
     "test:ui:dev": "cypress open",
-    "test:ui:headless": "cypress run"
+    "test:ui:headless": "cypress run",
+    "deploy": "npx gh-pages -d dist"
   },
   "lint-staged": {
     "*.{svelte,js,ts}": "npm run lint:fix"
@@ -35,6 +37,7 @@
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-svelte3": "^4.0.0",
+    "gh-pages": "^5.0.0",
     "husky": "^8.0.3",
     "jsdom": "^21.1.1",
     "lint-staged": "^13.2.1",
