@@ -55,6 +55,7 @@
     "vitest": "^0.29.8"
   },
   "dependencies": {
-    "pluto-loans-sdk": "^1.1.0"
+    "pluto-loans-sdk": "^1.2.0",
+    "stellar-sdk": "^10.4.1"
   }
 }
