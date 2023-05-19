@@ -1,9 +1,9 @@
 <script lang="ts">
-  import LoanStatus from '../lib/loanStatus/LoanStatus.svelte';
+  import LoanForm from '../lib/loanForm/LoanForm.svelte';
 </script>
 
 <div class="container">
-  <LoanStatus />
+  <LoanForm />
 </div>
 
 <style>
