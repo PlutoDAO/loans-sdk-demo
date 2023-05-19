@@ -11,7 +11,7 @@
   let loanXdr: string;
 
   async function handleGetLoan() {
-    const asset = new LoanAssetRequest('XLM', '', true);
+    const asset = new LoanAssetRequest(true);
     const entryBalance = new BalanceDto(asset, `${amount}`);
     loanXdr = await getLoanIntent(server, $borrower.publicKey, entryBalance);
   }
