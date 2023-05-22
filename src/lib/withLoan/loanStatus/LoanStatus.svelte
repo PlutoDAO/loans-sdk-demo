@@ -1,21 +1,21 @@
 <script lang="ts">
-  import { LoanStatusResponse, getLoanStatus } from 'pluto-loans-sdk';
+  import { getLoanStatus } from 'pluto-loans-sdk';
+  import { onMount } from 'svelte';
 
-  import server from '../stellar/server';
+  import { borrower } from '../../../lib/verifyAccount/store';
+  import server from '../../stellar/server';
   import LoanStatusCodeSnippet from './LoanStatusCodeSnippet.svelte';
+  import { loanStatus } from './store';
 
-  let loanStatus: LoanStatusResponse | undefined;
   let isLoading = false;
-  let borrower = '';
   let error = '';
 
   async function handleGetLoanStatus() {
     isLoading = true;
-    loanStatus = undefined;
     error = '';
 
     try {
-      loanStatus = await getLoanStatus(server, borrower);
+      $loanStatus = await getLoanStatus(server, $borrower.publicKey);
     } catch (e) {
       if (e instanceof Error) {
         const parsedError = JSON.parse(e.message);
@@ -30,6 +30,10 @@
       isLoading = false;
     }
   }
+
+  onMount(async () => {
+    await handleGetLoanStatus();
+  });
 </script>
 
 <svelte:head>
@@ -45,40 +49,26 @@
 </svelte:head>
 
 <div class="container">
-  <h4>Search by the borrower's stellar account to know the loan status</h4>
-
-  <div class="get-loan-container">
-    <label>
-      <p>Borrower:</p>
-      <input
-        type="text"
-        bind:value={borrower}
-        placeholder="GDRKRGDPWSWYQT4OE2GVKB2CBEPLAAXYZ3WYZTE46647YRJO5BAX5L2B"
-      />
-    </label>
-    <button class="submit-btn" on:click={handleGetLoanStatus}>Submit</button>
-  </div>
-
   {#if isLoading}
     Loading...
   {/if}
 
-  {#if loanStatus && !isLoading}
+  {#if $loanStatus && !isLoading}
     <div class="status-container">
       <p class="soft-text">
         Percentage Paid:
         <span class="strong-text">
-          {loanStatus.percentagePaid}
+          {$loanStatus.percentagePaid}
         </span>
       </p>
       <p class="soft-text">
         Remaining Debt: <span class="strong-text"
-          >{loanStatus.remainingDebt}</span
+          >{$loanStatus.remainingDebt}</span
         >
       </p>
       <p class="soft-text">
         yUSDC in Vault: <span class="strong-text">
-          {loanStatus.userTotalYusdcInVault}
+          {$loanStatus.userTotalYusdcInVault}
         </span>
       </p>
     </div>
@@ -106,23 +96,6 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 5px;
-  }
-
-  .submit-btn {
-    height: 35px;
-    background-color: #6724cf;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .get-loan-container {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 20px;
   }
 
   .container {

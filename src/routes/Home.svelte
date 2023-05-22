@@ -1,9 +1,18 @@
 <script lang="ts">
-  import LoanForm from '../lib/loanForm/LoanForm.svelte';
+  import VerifyAccount from '../lib/verifyAccount/VerifyAccount.svelte';
+  import { borrower } from '../lib/verifyAccount/store';
+  import WithLoan from '../lib/withLoan/WithLoan.svelte';
+  import WithoutLoan from '../lib/withoutLoan/WithoutLoan.svelte';
 </script>
 
 <div class="container">
-  <LoanForm />
+  <VerifyAccount />
+
+  {#if $borrower && $borrower.hasLoan}
+    <WithLoan />
+  {:else if $borrower && !$borrower.hasLoan}
+    <WithoutLoan />
+  {/if}
 </div>
 
 <style>
