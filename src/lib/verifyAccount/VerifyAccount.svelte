@@ -1,30 +1,25 @@
 <script lang="ts">
   import { Server } from 'stellar-sdk';
 
+  import SimpleSigner from '../simple-signer/SimpleSigner';
   import { mapAccountResponse } from './helpers/helpers';
-  import { borrower } from './store';
-
-  let publicKey: string;
+  import { borrower, publicKey } from './store';
 
   async function handleVerifyStellarAccount() {
-    if (publicKey) {
-      const server = new Server('https://horizon-testnet.stellar.org');
-      $borrower = mapAccountResponse(await server.loadAccount(publicKey));
-    }
+    const server = new Server('https://horizon-testnet.stellar.org');
+    $borrower = mapAccountResponse(await server.loadAccount($publicKey));
+  }
+
+  $: if ($publicKey) {
+    (async () => {
+      await handleVerifyStellarAccount();
+    })();
   }
 </script>
 
 <div class="verify-account-container">
-  <label>
-    <p>Account:</p>
-    <input
-      type="text"
-      bind:value={publicKey}
-      placeholder="GDRKRGDPWSWYQT4OE2GVKB2CBEPLAAXYZ3WYZTE46647YRJO5BAX5L2B"
-    />
-  </label>
-  <button class="submit-btn" on:click={handleVerifyStellarAccount}>
-    Verify account
+  <button class="submit-btn" on:click={() => SimpleSigner.connect()}>
+    Verify account simple signer
   </button>
 </div>
 
