@@ -1,22 +1,21 @@
 <script lang="ts">
-  import { LoanStatusResponse, getLoanStatus } from 'pluto-loans-sdk';
+  import { getLoanStatus } from 'pluto-loans-sdk';
   import { onMount } from 'svelte';
 
   import { borrower } from '../../../lib/verifyAccount/store';
   import server from '../../stellar/server';
   import LoanStatusCodeSnippet from './LoanStatusCodeSnippet.svelte';
+  import { loanStatus } from './store';
 
-  let loanStatus: LoanStatusResponse | undefined;
   let isLoading = false;
   let error = '';
 
   async function handleGetLoanStatus() {
     isLoading = true;
-    loanStatus = undefined;
     error = '';
 
     try {
-      loanStatus = await getLoanStatus(server, $borrower.publicKey);
+      $loanStatus = await getLoanStatus(server, $borrower.publicKey);
     } catch (e) {
       if (e instanceof Error) {
         const parsedError = JSON.parse(e.message);
@@ -54,22 +53,22 @@
     Loading...
   {/if}
 
-  {#if loanStatus && !isLoading}
+  {#if $loanStatus && !isLoading}
     <div class="status-container">
       <p class="soft-text">
         Percentage Paid:
         <span class="strong-text">
-          {loanStatus.percentagePaid}
+          {$loanStatus.percentagePaid}
         </span>
       </p>
       <p class="soft-text">
         Remaining Debt: <span class="strong-text"
-          >{loanStatus.remainingDebt}</span
+          >{$loanStatus.remainingDebt}</span
         >
       </p>
       <p class="soft-text">
         yUSDC in Vault: <span class="strong-text">
-          {loanStatus.userTotalYusdcInVault}
+          {$loanStatus.userTotalYusdcInVault}
         </span>
       </p>
     </div>
