@@ -7,8 +7,10 @@
 
 <LoanStatus />
 
-{#if $loanStatus.remainingDebt}
-  <SettleLoan />
-{:else if !$loanStatus.remainingDebt}
-  <WithdrawCollateral />
+{#if $loanStatus}
+  {#if $loanStatus.remainingDebt}
+    <SettleLoan />
+  {:else if !$loanStatus.remainingDebt}
+    <WithdrawCollateral />
+  {/if}
 {/if}
