@@ -1,5 +1,5 @@
 <script lang="ts">
-  import LoanForm from '../lib/loanForm/LoanForm.svelte';
+  import LoanForm from '../lib/withoutLoan/LoanForm.svelte';
 </script>
 
 <div class="container">

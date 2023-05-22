@@ -1,7 +1,7 @@
 <script lang="ts">
   import { LoanStatusResponse, getLoanStatus } from 'pluto-loans-sdk';
 
-  import server from '../stellar/server';
+  import server from '../../stellar/server';
   import LoanStatusCodeSnippet from './LoanStatusCodeSnippet.svelte';
 
   let loanStatus: LoanStatusResponse | undefined;
