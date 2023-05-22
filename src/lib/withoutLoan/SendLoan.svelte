@@ -2,7 +2,7 @@
   import { sendLoan } from 'pluto-loans-sdk';
 
   import server from '../stellar/server';
-  import { borrower } from './store';
+  import { borrower } from '../verifyAccount/store';
 
   let signedXdr: string;
 
