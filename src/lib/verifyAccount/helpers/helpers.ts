@@ -19,7 +19,7 @@ export function mapAccountResponse(account: AccountResponse): IBorrower {
   }
 
   for (const asset of assets) {
-    if (asset.code === 'pUSD') {
+    if (asset.code === 'lCOLLATERAL') {
       hasLoan = true;
     }
   }

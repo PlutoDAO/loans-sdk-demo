@@ -2,6 +2,7 @@
   import SettleLoan from './SettleLoan.svelte';
   import WithdrawCollateral from './WithdrawCollateral.svelte';
   import LoanStatus from './loanStatus/LoanStatus.svelte';
+  import LoanStatusCodeSnippet from './loanStatus/LoanStatusCodeSnippet.svelte';
   import { loanStatus } from './loanStatus/store';
 </script>
 
@@ -14,3 +15,5 @@
     <WithdrawCollateral />
   {/if}
 {/if}
+
+<LoanStatusCodeSnippet />
