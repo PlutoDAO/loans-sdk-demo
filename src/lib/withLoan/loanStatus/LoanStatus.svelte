@@ -4,7 +4,6 @@
 
   import { borrower } from '../../../lib/verifyAccount/store';
   import server from '../../stellar/server';
-  import LoanStatusCodeSnippet from './LoanStatusCodeSnippet.svelte';
   import { loanStatus } from './store';
 
   let isLoading = false;
@@ -77,8 +76,6 @@
   {#if error && !isLoading}
     <p>{error}</p>
   {/if}
-
-  <LoanStatusCodeSnippet />
 </div>
 
 <style>
