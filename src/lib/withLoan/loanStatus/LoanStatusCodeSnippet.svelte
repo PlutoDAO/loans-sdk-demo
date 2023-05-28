@@ -22,35 +22,20 @@
   <Prism
     language="javascript"
     source={`
-    import * as loansSdk from 'pluto-loans-sdk';
+const asset = new LoanAssetRequest(
+  'yUSDC',
+  'GDGTVWSM4MGS4T7Z6W4RPWOCHE2I6RDFCIFZGS3DOA63LWQTRNZNTTFF',
+  false,
+);
 
-    const server = 'testnet';
-    let loanStatus: loansSdk.LoanStatusResponse | undefined;
-    let isLoading = false;
-    let borrower = '';
-    let error = '';
+const settleDebtXDR = await getSettleDebtIntent(server, borrower, asset);
 
-    async function getLoanStatus() {
-        isLoading = true;
-        loanStatus = undefined;
-        error = '';
+// When the borrower signs the XDR, we send it
 
-        try {
-        loanStatus = await loansSdk.getLoanStatus(server, borrower);
-        } catch (e) {
-        if (e instanceof Error) {
-            const parsedError = JSON.parse(e.message);
+const signedWithdrawCollateralXdr =
+    'AAAAAgAAAACNv+HQvu9z8arYeDQYDO5KZoPZcjtWn3QWVHFVmFgtAgAAAGQAD2qUAAAAAQAAAAE...';
 
-            if (parsedError.type === 'LOAN_NOT_FOUND') {
-            error = 'Loan not found';
-            } else {
-            error = parsedError.detail;
-            }
-        }
-        } finally {
-        isLoading = false;
-        }
-    }
+await sendWithdrawCollateral(server, borrower, signedWithdrawCollateralXdr);
     `}
   />
 </div>

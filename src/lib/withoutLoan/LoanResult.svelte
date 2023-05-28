@@ -1,6 +1,6 @@
 <script lang="ts">
   import SimpleSigner from '../simple-signer/SimpleSigner';
-  import { getShortenedPublicKey } from '../utils/utils';
+  import { getShortenedText } from '../utils/utils';
   import { loanXdr } from './store';
 
   let isXdrInClipboard = false;
@@ -14,7 +14,7 @@
 <div class="result-container">
   <div class="result-xdr-container">
     <p>Result:</p>
-    <p>{getShortenedPublicKey($loanXdr)}</p>
+    <p>{getShortenedText($loanXdr)}</p>
   </div>
 
   <button on:click={copyXdrToClipboard}>

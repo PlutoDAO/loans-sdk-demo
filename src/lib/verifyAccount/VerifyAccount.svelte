@@ -1,6 +1,6 @@
 <script lang="ts">
   import SimpleSigner from '../simple-signer/SimpleSigner';
-  import { getShortenedPublicKey } from '../utils/utils';
+  import { getShortenedText } from '../utils/utils';
   import {
     getBorrowerFromStellarAccount,
     removeBorrower,
@@ -28,7 +28,7 @@
 <div class="verify-account-container">
   {#if $isUserConnected && $borrower}
     <div>
-      <p>Stellar Account: {getShortenedPublicKey($borrower.publicKey)}</p>
+      <p>Stellar Account: {getShortenedText($borrower.publicKey)}</p>
       <button on:click={handleRemoveBorrower}>Disconnect</button>
     </div>
   {:else}

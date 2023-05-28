@@ -1,19 +1,28 @@
 <script>
   import SettleLoan from './SettleLoan.svelte';
-  import WithdrawCollateral from './WithdrawCollateral.svelte';
   import LoanStatus from './loanStatus/LoanStatus.svelte';
   import LoanStatusCodeSnippet from './loanStatus/LoanStatusCodeSnippet.svelte';
   import { loanStatus } from './loanStatus/store';
 </script>
 
-<LoanStatus />
+<div class="container">
+  <LoanStatus />
 
-{#if $loanStatus}
-  {#if $loanStatus.remainingDebt}
-    <SettleLoan />
-  {:else if !$loanStatus.remainingDebt}
-    <WithdrawCollateral />
+  {#if $loanStatus}
+    {#if $loanStatus.remainingDebt}
+      <SettleLoan />
+    {/if}
   {/if}
-{/if}
 
-<LoanStatusCodeSnippet />
+  <LoanStatusCodeSnippet />
+</div>
+
+<style>
+  .container {
+    width: 100%;
+    max-width: 700px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+</style>

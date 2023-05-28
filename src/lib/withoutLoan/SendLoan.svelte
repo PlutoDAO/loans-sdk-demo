@@ -18,6 +18,7 @@
       const response = await sendLoan(server, $borrower.publicKey, $signedXdr);
 
       if (response) {
+        $signedXdr = '';
         $borrower.hasLoan = true;
       } else {
         $error = `Couldn't get the loan`;
