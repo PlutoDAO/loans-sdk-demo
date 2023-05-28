@@ -1,24 +1,26 @@
 <script lang="ts">
   import { sendLoan } from 'pluto-loans-sdk';
+  import { Circle } from 'svelte-loading-spinners';
 
   import server from '../stellar/server';
   import { borrower } from '../verifyAccount/store';
-  import { error, signedXdr } from './store';
+  import { error, loanXdr, signedXdr } from './store';
 
-  let isLoanSending = false;
+  let isLoading = false;
 
   async function handleSendLoan() {
-    if (isLoanSending) {
+    if (isLoading) {
       return;
     }
 
-    isLoanSending = true;
+    isLoading = true;
 
     try {
       const response = await sendLoan(server, $borrower.publicKey, $signedXdr);
 
       if (response) {
         $signedXdr = '';
+        $loanXdr = '';
         $borrower.hasLoan = true;
       } else {
         $error = `Couldn't get the loan`;
@@ -29,7 +31,7 @@
         $error = `Error status ${parsedError.status}: ${parsedError.detail}`;
       }
     } finally {
-      isLoanSending = false;
+      isLoading = false;
     }
   }
 </script>
@@ -40,7 +42,11 @@
     <input type="text" bind:value={$signedXdr} />
   </label>
   <button on:click={handleSendLoan}>
-    {isLoanSending ? 'Sending...' : 'Send Loan'}
+    {#if isLoading}
+      <Circle size="20" color="black" />
+    {:else}
+      <p>Send Loan</p>
+    {/if}
   </button>
 
   {#if $error}

@@ -1,39 +1,37 @@
 <script lang="ts">
-  import {
-    LoanAssetRequest,
-    getSettleDebtIntent,
-    sendWithdrawCollateral,
-  } from 'pluto-loans-sdk';
+  import { LoanAssetRequest, getSettleDebtIntent } from 'pluto-loans-sdk';
+  import { Circle } from 'svelte-loading-spinners';
 
   import SimpleSigner from '../simple-signer/SimpleSigner';
   import server from '../stellar/server';
   import { getShortenedText } from '../utils/utils';
   import { borrower } from '../verifyAccount/store';
-  import { signedXdr } from '../withoutLoan/store';
+  import WithdrawCollateral from './WithdrawCollateral.svelte';
 
   let unsignedXdr: string;
   let isXdrInClipboard = false;
+  let isLoading = false;
 
   async function handleSettleDebt() {
-    const asset = new LoanAssetRequest(
-      false,
-      'pUSD',
-      'GBMUBDMUOSN6LMB6X2YREGIFEJRXVYOVL6EV3LGRVPQ5KPJZO5E644I4',
-    );
+    try {
+      isLoading = true;
+      unsignedXdr = '';
 
-    unsignedXdr = await getSettleDebtIntent(server, $borrower.publicKey, asset);
-  }
+      const asset = new LoanAssetRequest(
+        false,
+        'pUSD',
+        'GBMUBDMUOSN6LMB6X2YREGIFEJRXVYOVL6EV3LGRVPQ5KPJZO5E644I4',
+      );
 
-  async function handleSendXdr() {
-    const result = await sendWithdrawCollateral(
-      server,
-      $borrower.publicKey,
-      $signedXdr,
-    );
-
-    if (result) {
-      $signedXdr = '';
-      $borrower.hasLoan = false;
+      unsignedXdr = await getSettleDebtIntent(
+        server,
+        $borrower.publicKey,
+        asset,
+      );
+    } catch (e) {
+      throw new Error(`${e}`);
+    } finally {
+      isLoading = false;
     }
   }
 
@@ -44,7 +42,13 @@
 </script>
 
 <div>
-  <button on:click={handleSettleDebt}>Settle debt</button>
+  <button on:click={handleSettleDebt}>
+    {#if isLoading}
+      <Circle size="20" color="black" />
+    {:else}
+      <p>Settle debt</p>
+    {/if}
+  </button>
 
   <hr class="solid" />
 
@@ -63,11 +67,9 @@
         Sign with Simple Signer
       </button>
 
-      <label>
-        <p>Signed XDR:</p>
-        <input type="text" bind:value={$signedXdr} />
-      </label>
-      <button on:click={handleSendXdr}>Withdraw Collateral</button>
+      <hr class="solid" />
+
+      <WithdrawCollateral />
     </div>
   {/if}
 </div>

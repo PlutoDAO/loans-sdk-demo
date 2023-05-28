@@ -23,8 +23,8 @@
     language="javascript"
     source={`
 const asset = new LoanAssetRequest(
-  'yUSDC',
-  'GDGTVWSM4MGS4T7Z6W4RPWOCHE2I6RDFCIFZGS3DOA63LWQTRNZNTTFF',
+  'pUSD',
+  'GBMUBDMUOSN6LMB6X2YREGIFEJRXVYOVL6EV3LGRVPQ5KPJZO5E644I4',
   false,
 );
 
