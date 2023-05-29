@@ -47,36 +47,34 @@
   />
 </svelte:head>
 
-<div class="container">
-  {#if isLoading}
-    Loading...
-  {/if}
+{#if isLoading}
+  Loading...
+{/if}
 
-  {#if $loanStatus && !isLoading}
-    <div class="status-container">
-      <p class="soft-text">
-        Percentage Paid:
-        <span class="strong-text">
-          {$loanStatus.percentagePaid}
-        </span>
-      </p>
-      <p class="soft-text">
-        Remaining Debt: <span class="strong-text"
-          >{$loanStatus.remainingDebt}</span
-        >
-      </p>
-      <p class="soft-text">
-        yUSDC in Vault: <span class="strong-text">
-          {$loanStatus.userTotalYusdcInVault}
-        </span>
-      </p>
-    </div>
-  {/if}
+{#if $loanStatus && !isLoading}
+  <div class="status-container">
+    <p class="soft-text">
+      Percentage Paid:
+      <span class="strong-text">
+        {$loanStatus.percentagePaid}%
+      </span>
+    </p>
+    <p class="soft-text">
+      Remaining Debt: <span class="strong-text"
+        >{$loanStatus.remainingDebt}</span
+      >
+    </p>
+    <p class="soft-text">
+      yUSDC in Vault: <span class="strong-text">
+        {$loanStatus.userTotalYusdcInVault}
+      </span>
+    </p>
+  </div>
+{/if}
 
-  {#if error && !isLoading}
-    <p>{error}</p>
-  {/if}
-</div>
+{#if error && !isLoading}
+  <p>{error}</p>
+{/if}
 
 <style>
   .strong-text {
@@ -93,13 +91,5 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 5px;
-  }
-
-  .container {
-    width: 100%;
-    max-width: 700px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
   }
 </style>

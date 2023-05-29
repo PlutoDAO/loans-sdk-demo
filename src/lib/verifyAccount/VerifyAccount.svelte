@@ -1,13 +1,21 @@
 <script lang="ts">
-  import { Server } from 'stellar-sdk';
-
   import SimpleSigner from '../simple-signer/SimpleSigner';
-  import { mapAccountResponse } from './helpers/helpers';
-  import { borrower, publicKey } from './store';
+  import { getShortenedText } from '../utils/utils';
+  import {
+    getBorrowerFromStellarAccount,
+    removeBorrower,
+  } from './helpers/helpers';
+  import { borrower, isUserConnected, publicKey } from './store';
 
   async function handleVerifyStellarAccount() {
-    const server = new Server('https://horizon-testnet.stellar.org');
-    $borrower = mapAccountResponse(await server.loadAccount($publicKey));
+    $borrower = await getBorrowerFromStellarAccount($publicKey);
+    $isUserConnected = true;
+  }
+
+  function handleRemoveBorrower() {
+    removeBorrower();
+    $isUserConnected = false;
+    $publicKey = '';
   }
 
   $: if ($publicKey) {
@@ -18,16 +26,26 @@
 </script>
 
 <div class="verify-account-container">
-  <button class="submit-btn" on:click={() => SimpleSigner.connect()}>
-    Verify account simple signer
-  </button>
+  {#if $isUserConnected && $borrower}
+    <div>
+      <p>Stellar Account: {getShortenedText($borrower.publicKey)}</p>
+      <button on:click={handleRemoveBorrower}>Disconnect</button>
+    </div>
+  {:else}
+    <p>Verify your Stellar account with Simple Signer</p>
+    <button class="submit-btn" on:click={() => SimpleSigner.connect()}>
+      Connect
+    </button>
+  {/if}
 </div>
 
 <style>
   .verify-account-container {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
     gap: 20px;
+    justify-content: center;
+    text-align: center;
   }
 </style>
