@@ -1,7 +1,6 @@
-/// <reference types="vitest" />
 import { NodeGlobalsPolyfillPlugin } from '@esbuild-plugins/node-globals-polyfill';
 import { svelte } from '@sveltejs/vite-plugin-svelte';
-// import rollupNodePolyFill from 'rollup-plugin-node-polyfills';
+import rollupNodePolyFill from 'rollup-plugin-node-polyfills';
 import { defineConfig } from 'vite';
 
 // https://vitejs.dev/config/
@@ -29,6 +28,12 @@ export default defineConfig({
   },
   build: {
     target: 'esnext',
-    assetsInlineLimit: 0,
+    rollupOptions: {
+      plugins: [
+        // Enable rollup polyfills plugin
+        // used during production bundling
+        rollupNodePolyFill(),
+      ],
+    },
   },
 });
