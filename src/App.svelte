@@ -6,6 +6,7 @@
   import { setContext } from './lib/services/context';
   import SimpleSigner from './lib/services/simple-signer/SimpleSigner';
   import server from './lib/services/stellar/server';
+  import VerifyAccount from './lib/verifyAccount/VerifyAccount.svelte';
   import { verifyBorrowerConnection } from './lib/verifyAccount/helpers/helpers';
   import { isUserConnected, borrower as storeBorrower } from './lib/verifyAccount/store';
   import Home from './routes/Home.svelte';
@@ -32,6 +33,7 @@
 
 <Router primary={false}>
   {#if !isLoading}
+    <VerifyAccount />
     <main class="main-container">
       <Route path="/loans-sdk-demo" component={Home} />
     </main>

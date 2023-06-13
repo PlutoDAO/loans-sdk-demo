@@ -27,8 +27,8 @@
 
 <div class="verify-account-container">
   {#if $isUserConnected && $borrower}
-    <div>
-      <p>Stellar Account: {getShortenedText($borrower.publicKey)}</p>
+    <div class="account-container">
+      <p>{getShortenedText($borrower.publicKey)}</p>
       <button on:click={handleRemoveBorrower}>Disconnect</button>
     </div>
   {:else}
@@ -41,9 +41,22 @@
   .verify-account-container {
     display: flex;
     flex-direction: column;
-    align-items: stretch;
+    align-items: center;
     gap: 20px;
-    justify-content: center;
     text-align: center;
+    padding: 10px 0 10px 0;
+  }
+
+  .account-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 0 10px 0;
+  }
+
+  .submit-btn {
+    width: 100px;
   }
 </style>

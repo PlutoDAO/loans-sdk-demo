@@ -1,25 +1,21 @@
 <script lang="ts">
+  import Copy from '../../assets/Copy.svelte';
   import SimpleSigner from '../services/simple-signer/SimpleSigner';
   import { getShortenedText } from '../utils/utils';
   import { loanXdr } from './store';
 
-  let isXdrInClipboard = false;
-
   function copyXdrToClipboard() {
     navigator.clipboard.writeText($loanXdr);
-    isXdrInClipboard = true;
   }
 </script>
 
 <div class="result-container">
   <div class="result-xdr-container">
-    <p>Result:</p>
-    <p>{getShortenedText($loanXdr)}</p>
+    <p class="result-xdr-text">{getShortenedText($loanXdr)}</p>
+    <button class="copy-btn" on:click={copyXdrToClipboard}>
+      <Copy />
+    </button>
   </div>
-
-  <button on:click={copyXdrToClipboard}>
-    {isXdrInClipboard ? 'Copied!' : 'Copy result'}
-  </button>
 
   <button on:click={() => SimpleSigner.sign($loanXdr)}> Sign with Simple Signer </button>
 </div>
@@ -30,17 +26,32 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 10px;
-    margin-top: 20px;
   }
 
   .result-xdr-container {
     background-color: #f9f9f9;
     width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .result-xdr-text {
+    margin-left: 8px;
+  }
+
+  .copy-btn {
+    background: none;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
   }
 
   @media (prefers-color-scheme: dark) {
     .result-xdr-container {
-      background-color: #181d2a;
+      background-color: #242b3f;
     }
   }
 </style>

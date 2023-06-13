@@ -76,15 +76,19 @@
   }
 </script>
 
-<div class="container">
-  <GetLoan balance={balance} handleGetLoan={handleGetLoan} />
+<div class="without-loan-container">
+  <h4 class="get-loan-title">Get a loan with XLM</h4>
   <hr class="solid" />
+  <GetLoan balance={balance} handleGetLoan={handleGetLoan} />
   {#if isLoading}
     <Circle size="20" color="black" />
   {/if}
 
   {#if $loanXdr}
+    <h4 class="get-loan-title">Result</h4>
+    <hr class="solid" />
     <LoanResult />
+    <h4 class="get-loan-title">Send the signed XDR</h4>
     <hr class="solid" />
     <SendLoan handleSendLoan={handleSendLoan} />
   {/if}
@@ -92,7 +96,7 @@
 </div>
 
 <style>
-  .container {
+  .without-loan-container {
     width: 100%;
     max-width: 700px;
     display: flex;
@@ -102,5 +106,13 @@
   .solid {
     width: 100%;
     border-top: 1px solid #bbb;
+    margin: 5px 0 15px 0;
+  }
+
+  .get-loan-title {
+    text-align: center;
+    width: 100%;
+    font-weight: 500;
+    margin-top: 20px;
   }
 </style>
