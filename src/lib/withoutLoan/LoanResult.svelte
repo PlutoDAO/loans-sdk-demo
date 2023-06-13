@@ -1,5 +1,5 @@
 <script lang="ts">
-  import SimpleSigner from '../simple-signer/SimpleSigner';
+  import SimpleSigner from '../services/simple-signer/SimpleSigner';
   import { getShortenedText } from '../utils/utils';
   import { loanXdr } from './store';
 
@@ -21,9 +21,7 @@
     {isXdrInClipboard ? 'Copied!' : 'Copy result'}
   </button>
 
-  <button on:click={() => SimpleSigner.sign($loanXdr)}>
-    Sign with Simple Signer
-  </button>
+  <button on:click={() => SimpleSigner.sign($loanXdr)}> Sign with Simple Signer </button>
 </div>
 
 <style>

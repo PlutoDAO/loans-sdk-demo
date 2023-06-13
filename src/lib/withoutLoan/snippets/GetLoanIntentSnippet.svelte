@@ -5,15 +5,8 @@
 </script>
 
 <svelte:head>
-  <link
-    rel="stylesheet"
-    href="https://fonts.googleapis.com/css?family=Open+Sans:400,700"
-    type="text/css"
-  />
-  <link
-    rel="stylesheet"
-    href="https://tutsplus.github.io/syntax-highlighter-demos/highlighters/Prism/prism_okaidia.css"
-  />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" type="text/css" />
+  <link rel="stylesheet" href="https://tutsplus.github.io/syntax-highlighter-demos/highlighters/Prism/prism_okaidia.css" />
 </svelte:head>
 
 <svelte:window bind:outerWidth={windowWidth} />
@@ -22,7 +15,7 @@
   <Prism
     language="javascript"
     source={`
-import {LoanAssetRequest, ApiStellarNetwork} from 'plutodao-loans-sdk';
+import {LoanAssetRequest, ApiStellarNetwork} from 'pluto-loans-sdk';
 
 const server: ApiStellarNetwork = 'testnet'; // 'testnet' | 'public'
 const borrower 'GAIRISXKPLOWZBMFRPU5XRGUUX3VMA3ZEWKBM5MSNRU3CHV6P4PYZ74D';
