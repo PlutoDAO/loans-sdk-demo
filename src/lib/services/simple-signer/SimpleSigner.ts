@@ -1,17 +1,13 @@
 import { Keypair, xdr } from 'stellar-sdk';
 
-import { publicKey as storePublicKey } from '../verifyAccount/store';
-import { signedXdr as storeSignedXdr } from '../withoutLoan/store';
+import { publicKey as storePublicKey } from './store';
+import { signedXdr as storeSignedXdr } from './store';
 
 export default class SimpleSigner {
   static connect() {
     const simpleSignerUrl = 'https://sign-test.plutodao.finance';
 
-    window.open(
-      `${simpleSignerUrl}/connect`,
-      'Connect_Window',
-      'width=360, height=450',
-    );
+    window.open(`${simpleSignerUrl}/connect`, 'Connect_Window', 'width=360, height=450');
 
     function handleMessage(e: MessageEvent) {
       if (e.origin !== simpleSignerUrl) {
@@ -34,11 +30,7 @@ export default class SimpleSigner {
   static sign(unsignedXdr: string) {
     const simpleSignerUrl = 'https://sign-test.plutodao.finance';
 
-    window.open(
-      `${simpleSignerUrl}/sign?xdr=${unsignedXdr}`,
-      'Sign_Window',
-      'width=360, height=700',
-    );
+    window.open(`${simpleSignerUrl}/sign?xdr=${unsignedXdr}`, 'Sign_Window', 'width=360, height=700');
 
     async function handleMessage(e: MessageEvent) {
       if (e.origin !== simpleSignerUrl) {
