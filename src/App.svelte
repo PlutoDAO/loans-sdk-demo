@@ -1,15 +1,20 @@
 <script lang="ts">
+  import * as loansSdk from 'pluto-loans-sdk';
   import { onMount } from 'svelte';
   import { Route, Router } from 'svelte-navigator';
 
+  import { setContext } from './lib/services/context';
+  import SimpleSigner from './lib/services/simple-signer/SimpleSigner';
+  import server from './lib/services/stellar/server';
   import { verifyBorrowerConnection } from './lib/verifyAccount/helpers/helpers';
-  import {
-    isUserConnected,
-    borrower as storeBorrower,
-  } from './lib/verifyAccount/store';
+  import { isUserConnected, borrower as storeBorrower } from './lib/verifyAccount/store';
   import Home from './routes/Home.svelte';
 
   let isLoading = false;
+
+  setContext('stellar', server);
+  setContext('simpleSigner', SimpleSigner);
+  setContext('loansSdk', loansSdk);
 
   onMount(async () => {
     isLoading = true;
