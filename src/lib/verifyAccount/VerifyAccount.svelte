@@ -1,11 +1,11 @@
 <script lang="ts">
-  import SimpleSigner from '../simple-signer/SimpleSigner';
+  import { getContext } from '../services/context';
+  import { publicKey } from '../services/simple-signer/store';
   import { getShortenedText } from '../utils/utils';
-  import {
-    getBorrowerFromStellarAccount,
-    removeBorrower,
-  } from './helpers/helpers';
-  import { borrower, isUserConnected, publicKey } from './store';
+  import { getBorrowerFromStellarAccount, removeBorrower } from './helpers/helpers';
+  import { borrower, isUserConnected } from './store';
+
+  const SimpleSigner = getContext('simpleSigner');
 
   async function handleVerifyStellarAccount() {
     $borrower = await getBorrowerFromStellarAccount($publicKey);
@@ -33,9 +33,7 @@
     </div>
   {:else}
     <p>Verify your Stellar account with Simple Signer</p>
-    <button class="submit-btn" on:click={() => SimpleSigner.connect()}>
-      Connect
-    </button>
+    <button class="submit-btn" on:click={() => SimpleSigner.connect()}> Connect </button>
   {/if}
 </div>
 
