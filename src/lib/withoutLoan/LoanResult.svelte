@@ -4,14 +4,20 @@
   import { getShortenedText } from '../utils/utils';
   import { loanXdr } from './store';
 
+  let shortXdr = '';
+
   function copyXdrToClipboard() {
     navigator.clipboard.writeText($loanXdr);
+  }
+
+  $: if ($loanXdr) {
+    shortXdr = getShortenedText($loanXdr);
   }
 </script>
 
 <div class="result-container">
   <div class="result-xdr-container">
-    <p class="result-xdr-text">{getShortenedText($loanXdr)}</p>
+    <p class="result-xdr-text">{shortXdr}</p>
     <button class="copy-btn" on:click={copyXdrToClipboard}>
       <Copy />
     </button>
