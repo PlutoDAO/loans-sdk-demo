@@ -1,6 +1,5 @@
 <script lang="ts">
   import { loanAmount } from '../verifyAccount/store';
-  import { error } from './store';
 
   export let balance: string;
 </script>
@@ -17,10 +16,6 @@
   </label>
 
   <slot name="submit-btn" />
-
-  {#if $error}
-    <p>{$error}</p>
-  {/if}
 </div>
 
 <style>

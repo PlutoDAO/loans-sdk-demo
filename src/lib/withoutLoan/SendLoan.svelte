@@ -1,6 +1,5 @@
 <script lang="ts">
   import { signedXdr } from '../services/simple-signer/store';
-  import { error } from './store';
 
   export let inputPlaceHolder: string;
 </script>
@@ -11,10 +10,6 @@
   </label>
 
   <slot name="submit-btn" />
-
-  {#if $error}
-    <p>{$error}</p>
-  {/if}
 </div>
 
 <style>
