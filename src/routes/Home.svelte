@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { borrower, isUserConnected } from '../lib/verifyAccount/store';
-  import WithLoan from '../lib/withLoan/WithLoan.svelte';
-  import WithoutLoan from '../lib/withoutLoan/WithoutLoan.svelte';
+  import { borrower, isUserConnected } from '../lib/components/verifyAccount/store';
+  import WithLoan from '../lib/components/withLoan/WithLoan.svelte';
+  import WithoutLoan from '../lib/components/withoutLoan/WithoutLoan.svelte';
 </script>
 
 <div class="container">

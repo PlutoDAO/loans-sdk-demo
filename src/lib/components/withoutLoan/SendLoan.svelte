@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { signedXdr } from '../services/simple-signer/store';
+  import { signedXdr } from '../../services/simple-signer/store';
 
   export let inputPlaceHolder: string;
 </script>

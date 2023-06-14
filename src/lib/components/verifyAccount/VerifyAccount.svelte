@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { getContext } from '../services/context';
-  import { publicKey } from '../services/simple-signer/store';
-  import { getShortenedText } from '../utils/utils';
+  import { getContext } from '../../services/context';
+  import { publicKey } from '../../services/simple-signer/store';
+  import { getShortenedText } from '../../utils/utils';
   import { getBorrowerFromStellarAccount, removeBorrower } from './helpers/helpers';
   import { borrower, isUserConnected } from './store';
 

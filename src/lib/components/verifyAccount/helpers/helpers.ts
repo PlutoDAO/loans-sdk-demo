@@ -1,6 +1,6 @@
 import { type AccountResponse, Server } from 'stellar-sdk';
 
-import LocalStorage from '../../../lib/storage/LocalStorage';
+import LocalStorage from '../../../../lib/storage/LocalStorage';
 import type IAsset from '../IAsset';
 import type IBorrower from '../IBorrower';
 

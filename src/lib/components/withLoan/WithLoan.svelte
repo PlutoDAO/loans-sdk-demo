@@ -6,11 +6,11 @@
   import { loanStatus } from './loanStatus/store';
   import { Circle } from 'svelte-loading-spinners';
   import { error, unsignedXdr } from './store';
-  import { getContext } from '../services/context';
+  import { getContext } from '../../services/context';
   import { borrower } from '../verifyAccount/store';
   import WithdrawCollateral from './WithdrawCollateral.svelte';
-  import { getShortenedText } from '../utils/utils';
-  import { signedXdr } from '../services/simple-signer/store';
+  import { getShortenedText } from '../../utils/utils';
+  import { signedXdr } from '../../services/simple-signer/store';
   import WithdrawResult from './WithdrawResult.svelte';
 
   const SimpleSigner = getContext('simpleSigner');

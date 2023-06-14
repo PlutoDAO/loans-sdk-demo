@@ -1,8 +1,8 @@
 <script lang="ts">
-  import SectionTitle from '../components/SectionTitle.svelte';
-  import SubmitBtn from '../components/SubmitBtn.svelte';
-  import { getContext } from '../services/context';
-  import { signedXdr } from '../services/simple-signer/store';
+  import { getContext } from '../../services/context';
+  import { signedXdr } from '../../services/simple-signer/store';
+  import SectionTitle from '../SectionTitle.svelte';
+  import SubmitBtn from '../SubmitBtn.svelte';
   import { borrower, loanAmount } from '../verifyAccount/store';
   import GetLoan from './GetLoan.svelte';
   import LoanResult from './LoanResult.svelte';

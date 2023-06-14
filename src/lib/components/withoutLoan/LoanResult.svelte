@@ -1,7 +1,7 @@
 <script lang="ts">
-  import Copy from '../../assets/Copy.svelte';
-  import SimpleSigner from '../services/simple-signer/SimpleSigner';
-  import { getShortenedText } from '../utils/utils';
+  import Copy from '../../../assets/Copy.svelte';
+  import SimpleSigner from '../../services/simple-signer/SimpleSigner';
+  import { getShortenedText } from '../../utils/utils';
   import store from './store';
 
   let shortXdr = '';

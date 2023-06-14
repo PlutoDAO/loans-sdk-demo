@@ -3,12 +3,12 @@
   import { onMount } from 'svelte';
   import { Route, Router } from 'svelte-navigator';
 
+  import VerifyAccount from './lib/components/verifyAccount/VerifyAccount.svelte';
+  import { verifyBorrowerConnection } from './lib/components/verifyAccount/helpers/helpers';
+  import { isUserConnected, borrower as storeBorrower } from './lib/components/verifyAccount/store';
   import { setContext } from './lib/services/context';
   import SimpleSigner from './lib/services/simple-signer/SimpleSigner';
   import server from './lib/services/stellar/server';
-  import VerifyAccount from './lib/verifyAccount/VerifyAccount.svelte';
-  import { verifyBorrowerConnection } from './lib/verifyAccount/helpers/helpers';
-  import { isUserConnected, borrower as storeBorrower } from './lib/verifyAccount/store';
   import Home from './routes/Home.svelte';
 
   let isLoading = false;
