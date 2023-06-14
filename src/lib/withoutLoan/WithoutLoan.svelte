@@ -8,7 +8,7 @@
   import LoanResult from './LoanResult.svelte';
   import SendLoan from './SendLoan.svelte';
   import GetLoanIntentSnippet from './snippets/GetLoanIntentSnippet.svelte';
-  import { error, isGettingTheLoan, isSendingTheLoan, loanXdr } from './store';
+  import store from './store';
 
   const loansSdk = getContext('loansSdk');
   const server = getContext('stellar');
@@ -29,49 +29,49 @@
     try {
       const asset = new loansSdk.LoanAssetRequest(true);
       const entryBalance = new loansSdk.BalanceDto(asset, `${$loanAmount}`);
-      $isGettingTheLoan = true;
+      $store.isGettingTheLoan = true;
       clearStores();
-      $loanXdr = await loansSdk.getLoanIntent(server, $borrower.publicKey, entryBalance);
+      $store.loanXdr = await loansSdk.getLoanIntent(server, $borrower.publicKey, entryBalance);
     } catch (e) {
       if (e instanceof Error) {
         const parsedError = JSON.parse(e.message);
-        $error = `Error status ${parsedError.status}: ${parsedError.detail}`;
+        $store.error = `Error status ${parsedError.status}: ${parsedError.detail}`;
       }
     } finally {
-      $isGettingTheLoan = false;
+      $store.isGettingTheLoan = false;
     }
   }
 
   async function handleSendLoan() {
-    if ($isGettingTheLoan) {
+    if ($store.isGettingTheLoan) {
       return;
     }
 
-    $isGettingTheLoan = true;
+    $store.isGettingTheLoan = true;
 
     try {
       const response = await loansSdk.sendLoan(server, $borrower.publicKey, $signedXdr);
 
       if (response) {
         $signedXdr = '';
-        $loanXdr = '';
+        $store.loanXdr = '';
         $borrower.hasLoan = true;
       } else {
-        $error = `Couldn't get the loan`;
+        $store.error = `Couldn't get the loan`;
       }
     } catch (e) {
       if (e instanceof Error) {
         const parsedError = JSON.parse(e.message);
-        $error = `Error status ${parsedError.status}: ${parsedError.detail}`;
+        $store.error = `Error status ${parsedError.status}: ${parsedError.detail}`;
       }
     } finally {
-      $isGettingTheLoan = false;
+      $store.isGettingTheLoan = false;
     }
   }
 
   function clearStores() {
-    $loanXdr = '';
-    $error = '';
+    $store.loanXdr = '';
+    $store.error = '';
     $signedXdr = '';
   }
 </script>
@@ -79,7 +79,7 @@
 <div class="without-loan-container">
   <SectionTitle title="Get a loan with XLM" />
   <GetLoan balance={balance}>
-    <SubmitBtn slot="submit-btn" text="Get Loan" onClick={handleGetLoan} isDisable={$loanAmount ? false : true} isLoadingStore={isGettingTheLoan} />
+    <SubmitBtn slot="submit-btn" text="Get Loan" onClick={handleGetLoan} isDisable={$loanAmount ? false : true} isLoading={$store.isGettingTheLoan} />
   </GetLoan>
 
   <SectionTitle title="Result" />
@@ -87,7 +87,7 @@
 
   <SectionTitle title="Send the signed XDR" />
   <SendLoan inputPlaceHolder={xdrPlaceholder}>
-    <SubmitBtn slot="submit-btn" text="Send Loan" onClick={handleSendLoan} isLoadingStore={isSendingTheLoan} />
+    <SubmitBtn slot="submit-btn" text="Send Loan" onClick={handleSendLoan} isLoading={$store.isSendingTheLoan} />
   </SendLoan>
 
   <GetLoanIntentSnippet />

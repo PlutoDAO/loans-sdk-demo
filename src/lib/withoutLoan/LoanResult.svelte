@@ -2,16 +2,16 @@
   import Copy from '../../assets/Copy.svelte';
   import SimpleSigner from '../services/simple-signer/SimpleSigner';
   import { getShortenedText } from '../utils/utils';
-  import { loanXdr } from './store';
+  import store from './store';
 
   let shortXdr = '';
 
   function copyXdrToClipboard() {
-    navigator.clipboard.writeText($loanXdr);
+    navigator.clipboard.writeText($store.loanXdr);
   }
 
-  $: if ($loanXdr) {
-    shortXdr = getShortenedText($loanXdr);
+  $: if ($store.loanXdr) {
+    shortXdr = getShortenedText($store.loanXdr);
   }
 </script>
 
@@ -23,7 +23,7 @@
     </button>
   </div>
 
-  <button on:click={() => SimpleSigner.sign($loanXdr)}> Sign with Simple Signer </button>
+  <button on:click={() => SimpleSigner.sign($store.loanXdr)}> Sign with Simple Signer </button>
 </div>
 
 <style>
