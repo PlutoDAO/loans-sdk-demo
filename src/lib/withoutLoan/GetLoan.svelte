@@ -3,7 +3,6 @@
   import { error } from './store';
 
   export let balance: string;
-  export let handleGetLoan: () => void;
 </script>
 
 <div class="loan-intent-container">
@@ -17,9 +16,7 @@
     <input type="number" bind:value={$loanAmount} placeholder="100" class="loan-amount-input bg-color" />
   </label>
 
-  <button on:click={handleGetLoan} disabled={$loanAmount ? false : true}>
-    <p>Get loan</p>
-  </button>
+  <slot name="submit-btn" />
 
   {#if $error}
     <p>{$error}</p>

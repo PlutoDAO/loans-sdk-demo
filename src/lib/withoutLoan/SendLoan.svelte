@@ -2,18 +2,15 @@
   import { signedXdr } from '../services/simple-signer/store';
   import { error } from './store';
 
-  const xdrPlaceholder = 'AAAAAgAAAABZzPGvncdHP5v4MhkSJFcKj9p5L5Q4SUJ5WttL';
-
-  export let handleSendLoan: () => Promise<void>;
+  export let inputPlaceHolder: string;
 </script>
 
 <div class="send-loan-container">
   <label>
-    <input type="text" bind:value={$signedXdr} class="bg-color" placeholder={xdrPlaceholder} />
+    <input type="text" bind:value={$signedXdr} class="bg-color" placeholder={inputPlaceHolder} />
   </label>
-  <button on:click={handleSendLoan}>
-    <p>Send Loan</p>
-  </button>
+
+  <slot name="submit-btn" />
 
   {#if $error}
     <p>{$error}</p>
