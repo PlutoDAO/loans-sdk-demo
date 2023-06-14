@@ -1,18 +1,17 @@
 <script lang="ts">
   import { Circle } from 'svelte-loading-spinners';
-  import type { Writable } from 'svelte/store';
 
   export let text: string;
   export let onClick: () => void;
   export let isDisable = false;
-  export let isLoadingStore: Writable<boolean>;
+  export let isLoading: boolean;
 </script>
 
 <div class="submit-container">
   <button on:click={onClick} disabled={isDisable}>
     <p>{text}</p>
   </button>
-  {#if $isLoadingStore}
+  {#if isLoading}
     <Circle size="20" color="white" />
   {/if}
 </div>
