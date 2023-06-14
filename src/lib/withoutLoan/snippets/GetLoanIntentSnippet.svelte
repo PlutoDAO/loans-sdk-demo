@@ -11,7 +11,7 @@
 
 <svelte:window bind:outerWidth={windowWidth} />
 
-<div class="snippet-container" style="max-width: 700px">
+<div class="snippet-container" style="max-width: 700px; margin-top: 20px">
   <Prism
     language="javascript"
     source={`
