@@ -1,15 +1,13 @@
 <script lang="ts">
   import SectionTitle from './SectionTitle.svelte';
 
-  interface InputProps {
-    type?: string;
-    placeholder?: string;
-    disabled?: boolean;
-  }
-
   export let title: string;
   export let value: string | number = '';
-  export let inputProps: InputProps = {};
+  export let placeholder = '';
+  export let disabled = false;
+  export let type = {
+    type: 'text',
+  };
 </script>
 
 <SectionTitle title={title} />
@@ -17,7 +15,7 @@
   <slot name="prev-input" />
 
   <label class="label">
-    <input type="text" bind:value={value} class="input" {...inputProps} />
+    <input {...type} bind:value={value} class="input" placeholder={placeholder} disabled={disabled} />
     <div class="button">
       <slot name="input-button" />
     </div>

@@ -16,11 +16,12 @@
   }
 
   const inputProps = {
+    type: { type: 'text' },
     disabled: true,
   };
 </script>
 
-<SectionBody title="Result" bind:value={shortXdr} inputProps={inputProps}>
+<SectionBody title="Result" bind:value={shortXdr} type={inputProps.type} disabled={inputProps.disabled}>
   <button slot="input-button" class="copy-btn" on:click={copyXdrToClipboard}>
     <Copy />
   </button>
