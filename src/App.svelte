@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { SvelteToast } from '@zerodevx/svelte-toast';
   import * as loansSdk from 'pluto-loans-sdk';
   import { onMount } from 'svelte';
   import { Route, Router } from 'svelte-navigator';
@@ -9,6 +10,7 @@
   import { setContext } from './lib/services/context';
   import SimpleSigner from './lib/services/simple-signer/SimpleSigner';
   import server from './lib/services/stellar/server';
+  import toast from './lib/services/toast';
   import Home from './routes/Home.svelte';
 
   let isLoading = false;
@@ -16,6 +18,7 @@
   setContext('stellar', server);
   setContext('simpleSigner', SimpleSigner);
   setContext('loansSdk', loansSdk);
+  setContext('toast', toast);
 
   onMount(async () => {
     isLoading = true;
@@ -32,6 +35,7 @@
 </script>
 
 <Router primary={false}>
+  <SvelteToast />
   {#if !isLoading}
     <VerifyAccount />
     <main class="main-container">
