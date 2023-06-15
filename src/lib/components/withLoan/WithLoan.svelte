@@ -4,7 +4,6 @@
   import LoanStatus from './loanStatus/LoanStatus.svelte';
   import LoanStatusCodeSnippet from './loanStatus/LoanStatusCodeSnippet.svelte';
   import { loanStatus } from './loanStatus/store';
-  import { Circle } from 'svelte-loading-spinners';
   import { error, unsignedXdr } from './store';
   import { getContext } from '../../services/context';
   import { borrower } from '../verifyAccount/store';
@@ -16,14 +15,17 @@
   const SimpleSigner = getContext('simpleSigner');
   const loansSdk = getContext('loansSdk');
   const server = getContext('stellar');
+  const toast = getContext('toast');
   const pUSD = { code: 'pUSD', issuer: 'GAZXGXY3B3VYKCJTWKQCSPFFLW7OT6D5NVMT2ZYUEFM7WDOR5B2NGKWS' };
   let isStatusLoading = false;
 
   async function handleGetLoanStatus() {
+    toast.loading('Getting loan status...');
     isStatusLoading = true;
 
     try {
       $loanStatus = await loansSdk.getLoanStatus(server, $borrower.publicKey);
+      toast.success('Loan status retrieved successfully');
     } catch (e) {
       if (e instanceof Error) {
         const parsedError = JSON.parse(e.message);
@@ -75,8 +77,6 @@
 <div class="container">
   {#if !isStatusLoading}
     <LoanStatus />
-  {:else}
-    <Circle />
   {/if}
 
   {#if $loanStatus}
