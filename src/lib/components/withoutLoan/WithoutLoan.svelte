@@ -50,6 +50,7 @@
   }
 
   async function handleSendLoan() {
+    toast.loading('Sending XDR...');
     if ($store.isSendingTheLoan) {
       return;
     }
