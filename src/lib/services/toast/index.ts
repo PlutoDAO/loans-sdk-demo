@@ -15,8 +15,12 @@ const toastThemes = {
 };
 
 function pushToast(options: SvelteToastOptions) {
-  toastController.pop();
+  clearToast();
   toastController.push(options);
+}
+
+function clearToast() {
+  toastController.pop();
 }
 
 function loadingToast(msg: string) {
@@ -32,6 +36,7 @@ function successToast(msg: string) {
 }
 
 export default {
+  clear: clearToast,
   loading: loadingToast,
   error: errorToast,
   success: successToast,
