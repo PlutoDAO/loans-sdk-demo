@@ -16,7 +16,7 @@
   const SimpleSigner = getContext('simpleSigner');
   const loansSdk = getContext('loansSdk');
   const server = getContext('stellar');
-  const pUSD = { code: 'pUSD', issuer: 'GBMUBDMUOSN6LMB6X2YREGIFEJRXVYOVL6EV3LGRVPQ5KPJZO5E644I4' };
+  const pUSD = { code: 'pUSD', issuer: 'GAZXGXY3B3VYKCJTWKQCSPFFLW7OT6D5NVMT2ZYUEFM7WDOR5B2NGKWS' };
   let isStatusLoading = false;
 
   async function handleGetLoanStatus() {
