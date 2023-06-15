@@ -1,7 +1,6 @@
 <script lang="ts">
   import { getContext } from '../../services/context';
   import { signedXdr } from '../../services/simple-signer/store';
-  import SectionTitle from '../SectionTitle.svelte';
   import SubmitBtn from '../SubmitBtn.svelte';
   import { borrower, loanAmount } from '../verifyAccount/store';
   import GetLoan from './GetLoan.svelte';
@@ -77,15 +76,12 @@
 </script>
 
 <div class="without-loan-container">
-  <SectionTitle title="Get a loan with XLM" />
   <GetLoan balance={balance}>
     <SubmitBtn slot="submit-btn" text="Get Loan" onClick={handleGetLoan} isDisable={$loanAmount ? false : true} isLoading={$store.isGettingTheLoan} />
   </GetLoan>
 
-  <SectionTitle title="Result" />
   <LoanResult />
 
-  <SectionTitle title="Send the signed XDR" />
   <SendLoan inputPlaceHolder={xdrPlaceholder}>
     <SubmitBtn slot="submit-btn" text="Send Loan" onClick={handleSendLoan} isLoading={$store.isSendingTheLoan} />
   </SendLoan>
