@@ -1,4 +1,5 @@
 <script lang="ts">
+  import SectionTitle from '../../SectionTitle.svelte';
   import { loanStatus } from './store';
 
   let isLoading = false;
@@ -22,6 +23,7 @@
 {/if}
 
 {#if $loanStatus && !isLoading}
+  <SectionTitle title="Loan Status" />
   <div class="status-container">
     <p class="soft-text">
       Percentage Paid:
