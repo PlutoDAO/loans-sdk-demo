@@ -15,7 +15,13 @@
   <slot name="prev-input" />
 
   <label class="label">
-    <input {...type} bind:value={value} class="input" placeholder={placeholder} disabled={disabled} />
+    <input
+      {...type}
+      bind:value={value}
+      class="input"
+      placeholder={placeholder}
+      disabled={disabled}
+    />
     <div class="button">
       <slot name="input-button" />
     </div>

@@ -21,12 +21,19 @@
   };
 </script>
 
-<SectionBody title="Result" bind:value={shortXdr} type={inputProps.type} disabled={inputProps.disabled}>
+<SectionBody
+  title="Result"
+  bind:value={shortXdr}
+  type={inputProps.type}
+  disabled={inputProps.disabled}
+>
   <button slot="input-button" class="copy-btn" on:click={copyXdrToClipboard}>
     <Copy />
   </button>
 
-  <button slot="post-input" on:click={() => SimpleSigner.sign($store.loanXdr)}> Sign with Simple Signer </button>
+  <button slot="post-input" on:click={() => SimpleSigner.sign($store.loanXdr)}>
+    Sign with Simple Signer
+  </button>
 </SectionBody>
 
 <style>

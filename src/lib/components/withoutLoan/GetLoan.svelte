@@ -10,7 +10,12 @@
   };
 </script>
 
-<SectionBody title="Get a loan with XLM" bind:value={$loanAmount} type={inputProps.type} placeholder={inputProps.placeholder}>
+<SectionBody
+  title="Get a loan with XLM"
+  bind:value={$loanAmount}
+  type={inputProps.type}
+  placeholder={inputProps.placeholder}
+>
   <div slot="prev-input" class="loan-amount-container">
     <div class="account-balance-container">
       <p class="text-light">{`Available: `}</p>

@@ -30,7 +30,11 @@ export default class SimpleSigner {
   static sign(unsignedXdr: string) {
     const simpleSignerUrl = 'https://sign-test.plutodao.finance';
 
-    window.open(`${simpleSignerUrl}/sign?xdr=${unsignedXdr}`, 'Sign_Window', 'width=360, height=700');
+    window.open(
+      `${simpleSignerUrl}/sign?xdr=${unsignedXdr}`,
+      'Sign_Window',
+      'width=360, height=700',
+    );
 
     async function handleMessage(e: MessageEvent) {
       if (e.origin !== simpleSignerUrl) {
