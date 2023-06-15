@@ -12,7 +12,9 @@
 
   const loansSdk = getContext('loansSdk');
   const server = getContext('stellar');
+  const toast = getContext('toast');
   const xdrPlaceholder = 'AAAAAgAAAABZzPGvncdHP5v4MhkSJFcKj9p5L5Q4SUJ5WttL';
+
   let balance = getAccountXlmBalance();
 
   function getAccountXlmBalance() {
@@ -26,46 +28,53 @@
   }
 
   async function handleGetLoan() {
+    toast.loading('Fetching XDR...');
+    clearStores();
+
+    if (!$loanAmount) {
+      toast.error('Loan amount is required.');
+      return;
+    }
+
     try {
       const asset = new loansSdk.LoanAssetRequest(true);
       const entryBalance = new loansSdk.BalanceDto(asset, `${$loanAmount}`);
-      $store.isGettingTheLoan = true;
-      clearStores();
       $store.loanXdr = await loansSdk.getLoanIntent(server, $borrower.publicKey, entryBalance);
+      toast.success('Success!');
     } catch (e) {
       if (e instanceof Error) {
         const parsedError = JSON.parse(e.message);
         $store.error = `Error status ${parsedError.status}: ${parsedError.detail}`;
       }
-    } finally {
-      $store.isGettingTheLoan = false;
     }
   }
 
   async function handleSendLoan() {
-    if ($store.isGettingTheLoan) {
+    if ($store.isSendingTheLoan) {
       return;
     }
 
-    $store.isGettingTheLoan = true;
-
     try {
-      const response = await loansSdk.sendLoan(server, $borrower.publicKey, $signedXdr);
-
-      if (response) {
-        $signedXdr = '';
-        $store.loanXdr = '';
-        $borrower.hasLoan = true;
-      } else {
-        $store.error = `Couldn't get the loan`;
-      }
+      await sendLoan();
     } catch (e) {
       if (e instanceof Error) {
         const parsedError = JSON.parse(e.message);
-        $store.error = `Error status ${parsedError.status}: ${parsedError.detail}`;
+        toast.error(`Error status ${parsedError.status}: ${parsedError.detail}`);
       }
     } finally {
-      $store.isGettingTheLoan = false;
+      $store.isSendingTheLoan = false;
+    }
+
+    async function sendLoan() {
+      const response = await loansSdk.sendLoan(server, $borrower.publicKey, $signedXdr);
+      $store.isSendingTheLoan = true;
+
+      if (response) {
+        toast.success('Success!');
+        $borrower.hasLoan = true;
+      } else {
+        toast.error(`Couldn't get the loan`);
+      }
     }
   }
 
@@ -77,9 +86,8 @@
 </script>
 
 <div class="without-loan-container">
-  <SectionTitle title="Get a loan with XLM" />
   <GetLoan balance={balance}>
-    <SubmitBtn slot="submit-btn" text="Get Loan" onClick={handleGetLoan} isDisable={$loanAmount ? false : true} isLoading={$store.isGettingTheLoan} />
+    <SubmitBtn slot="submit-btn" text="Get Loan" onClick={handleGetLoan} />
   </GetLoan>
 
   <SectionTitle title="Result" />
@@ -87,7 +95,7 @@
 
   <SectionTitle title="Send the signed XDR" />
   <SendLoan inputPlaceHolder={xdrPlaceholder}>
-    <SubmitBtn slot="submit-btn" text="Send Loan" onClick={handleSendLoan} isLoading={$store.isSendingTheLoan} />
+    <SubmitBtn slot="submit-btn" text="Send Loan" onClick={handleSendLoan} />
   </SendLoan>
 
   <GetLoanIntentSnippet />
