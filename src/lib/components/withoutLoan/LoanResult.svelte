@@ -2,7 +2,7 @@
   import Copy from '../../../assets/Copy.svelte';
   import SimpleSigner from '../../services/simple-signer/SimpleSigner';
   import { getShortenedText } from '../../utils/utils';
-  import SectionLoan from '../SectionLoan.svelte';
+  import SectionBody from '../SectionBody.svelte';
   import store from './store';
 
   let shortXdr = '';
@@ -20,13 +20,13 @@
   };
 </script>
 
-<SectionLoan title="Result" bind:value={shortXdr} inputProps={inputProps}>
+<SectionBody title="Result" bind:value={shortXdr} inputProps={inputProps}>
   <button slot="input-button" class="copy-btn" on:click={copyXdrToClipboard}>
     <Copy />
   </button>
 
   <button slot="post-input" on:click={() => SimpleSigner.sign($store.loanXdr)}> Sign with Simple Signer </button>
-</SectionLoan>
+</SectionBody>
 
 <style>
   .copy-btn {

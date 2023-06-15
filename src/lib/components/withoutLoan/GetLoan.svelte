@@ -1,5 +1,5 @@
 <script lang="ts">
-  import SectionLoan from '../SectionLoan.svelte';
+  import SectionBody from '../SectionBody.svelte';
   import { loanAmount } from '../verifyAccount/store';
 
   export let balance: string;
@@ -10,7 +10,7 @@
   };
 </script>
 
-<SectionLoan title="Get a loan with XLM" bind:value={$loanAmount} inputProps={inputProps}>
+<SectionBody title="Get a loan with XLM" bind:value={$loanAmount} inputProps={inputProps}>
   <div slot="prev-input" class="loan-amount-container">
     <div class="account-balance-container">
       <p class="text-light">{`Available: `}</p>
@@ -19,7 +19,7 @@
   </div>
 
   <slot name="submit-btn" slot="post-input" />
-</SectionLoan>
+</SectionBody>
 
 <style>
   .loan-amount-container {

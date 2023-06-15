@@ -25,11 +25,12 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 10px;
   }
 
   .label {
     position: relative;
+    display: block;
+    margin-bottom: 10px;
   }
 
   .input {
@@ -40,7 +41,7 @@
     color: black;
   }
 
-  :global(.button) {
+  .button {
     position: absolute;
     top: 0;
     right: 0;

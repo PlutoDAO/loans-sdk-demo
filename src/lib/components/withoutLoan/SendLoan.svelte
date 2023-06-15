@@ -1,6 +1,6 @@
 <script lang="ts">
   import { signedXdr } from '../../services/simple-signer/store';
-  import SectionLoan from '../SectionLoan.svelte';
+  import SectionBody from '../SectionBody.svelte';
 
   export let inputPlaceHolder: string;
 
@@ -9,9 +9,9 @@
   };
 </script>
 
-<SectionLoan title="Send the signed XDR" bind:value={$signedXdr} inputProps={inputProps}>
+<SectionBody title="Send the signed XDR" bind:value={$signedXdr} inputProps={inputProps}>
   <slot name="submit-btn" slot="post-input" />
-</SectionLoan>
+</SectionBody>
 
 <style>
 </style>
