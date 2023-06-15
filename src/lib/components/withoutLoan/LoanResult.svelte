@@ -2,6 +2,7 @@
   import Copy from '../../../assets/Copy.svelte';
   import SimpleSigner from '../../services/simple-signer/SimpleSigner';
   import { getShortenedText } from '../../utils/utils';
+  import SectionLoan from '../SectionLoan.svelte';
   import store from './store';
 
   let shortXdr = '';
@@ -13,51 +14,26 @@
   $: if ($store.loanXdr) {
     shortXdr = getShortenedText($store.loanXdr);
   }
+
+  const inputProps = {
+    disabled: true,
+  };
 </script>
 
-<div class="result-container">
-  <div class="result-xdr-container">
-    <p class="result-xdr-text">{shortXdr}</p>
-    <button class="copy-btn" on:click={copyXdrToClipboard}>
-      <Copy />
-    </button>
-  </div>
+<SectionLoan title="Result" bind:value={shortXdr} inputProps={inputProps}>
+  <button slot="input-button" class="copy-btn" on:click={copyXdrToClipboard}>
+    <Copy />
+  </button>
 
-  <button on:click={() => SimpleSigner.sign($store.loanXdr)}> Sign with Simple Signer </button>
-</div>
+  <button slot="post-input" on:click={() => SimpleSigner.sign($store.loanXdr)}> Sign with Simple Signer </button>
+</SectionLoan>
 
 <style>
-  .result-container {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-  }
-
-  .result-xdr-container {
-    background-color: #f9f9f9;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    justify-content: space-between;
-  }
-
-  .result-xdr-text {
-    margin-left: 8px;
-  }
-
   .copy-btn {
     background: none;
     width: 30px;
     height: 30px;
     display: flex;
     align-items: center;
-  }
-
-  @media (prefers-color-scheme: dark) {
-    .result-xdr-container {
-      background-color: #242b3f;
-    }
   }
 </style>

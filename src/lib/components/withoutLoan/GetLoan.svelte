@@ -1,40 +1,27 @@
 <script lang="ts">
+  import SectionLoan from '../SectionLoan.svelte';
   import { loanAmount } from '../verifyAccount/store';
 
   export let balance: string;
+
+  const inputProps = {
+    type: 'number',
+    placeholder: '100',
+  };
 </script>
 
-<div class="loan-intent-container">
-  <label>
-    <div class="loan-amount-container">
-      <div class="account-balance-container">
-        <p class="text-light">{`Available: `}</p>
-        <p class="text-heavy">{`${balance} XLM`}</p>
-      </div>
+<SectionLoan title="Get a loan with XLM" bind:value={$loanAmount} inputProps={inputProps}>
+  <div slot="prev-input" class="loan-amount-container">
+    <div class="account-balance-container">
+      <p class="text-light">{`Available: `}</p>
+      <p class="text-heavy">{`${balance} XLM`}</p>
     </div>
-    <input type="number" bind:value={$loanAmount} placeholder="100" class="loan-amount-input bg-color" />
-  </label>
+  </div>
 
-  <slot name="submit-btn" />
-</div>
+  <slot name="submit-btn" slot="post-input" />
+</SectionLoan>
 
 <style>
-  .loan-intent-container {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-  }
-
-  .bg-color {
-    background-color: #242b3f;
-    color: white;
-  }
-
-  .loan-amount-input {
-    border: none;
-  }
-
   .loan-amount-container {
     display: flex;
     flex-direction: row;

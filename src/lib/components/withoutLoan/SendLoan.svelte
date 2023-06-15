@@ -1,28 +1,17 @@
 <script lang="ts">
   import { signedXdr } from '../../services/simple-signer/store';
+  import SectionLoan from '../SectionLoan.svelte';
 
   export let inputPlaceHolder: string;
+
+  const inputProps = {
+    placeholder: inputPlaceHolder,
+  };
 </script>
 
-<div class="send-loan-container">
-  <label>
-    <input type="text" bind:value={$signedXdr} class="bg-color" placeholder={inputPlaceHolder} />
-  </label>
-
-  <slot name="submit-btn" />
-</div>
+<SectionLoan title="Send the signed XDR" bind:value={$signedXdr} inputProps={inputProps}>
+  <slot name="submit-btn" slot="post-input" />
+</SectionLoan>
 
 <style>
-  .send-loan-container {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-  }
-
-  .bg-color {
-    background-color: #242b3f;
-    color: white;
-    border: none;
-  }
 </style>
