@@ -12,7 +12,12 @@
         <p class="text-heavy">{`${balance} XLM`}</p>
       </div>
     </div>
-    <input type="number" bind:value={$loanAmount} placeholder="100" class="loan-amount-input bg-color" />
+    <input
+      type="number"
+      bind:value={$loanAmount}
+      placeholder="100"
+      class="loan-amount-input bg-color"
+    />
   </label>
 
   <slot name="submit-btn" />

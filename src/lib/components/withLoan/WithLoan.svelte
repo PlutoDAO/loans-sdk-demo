@@ -82,7 +82,11 @@
   {#if $loanStatus}
     {#if $loanStatus.remainingDebt}
       <SettleLoan handleSettleDebt={handleSettleDebt}>
-        <WithdrawResult slot="result-component" xdr={getShortenedText($unsignedXdr)} handleSign={handleSign} />
+        <WithdrawResult
+          slot="result-component"
+          xdr={getShortenedText($unsignedXdr)}
+          handleSign={handleSign}
+        />
         <WithdrawCollateral slot="withdraw-component" handleSendXdr={handleSendXdr} />
       </SettleLoan>
     {/if}
