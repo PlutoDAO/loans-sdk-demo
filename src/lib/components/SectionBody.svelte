@@ -1,9 +1,15 @@
 <script lang="ts">
   import SectionTitle from './SectionTitle.svelte';
 
+  interface InputProps {
+    type?: string;
+    placeholder?: string;
+    disabled?: boolean;
+  }
+
   export let title: string;
   export let value: string | number = '';
-  export let inputProps = {};
+  export let inputProps: InputProps = {};
 </script>
 
 <SectionTitle title={title} />
