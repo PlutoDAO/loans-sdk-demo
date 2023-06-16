@@ -7,12 +7,10 @@
   import { error, unsignedXdr } from './store';
   import { getContext } from '../../services/context';
   import { borrower } from '../verifyAccount/store';
-  import WithdrawCollateral from './WithdrawCollateral.svelte';
-  import { getShortenedText } from '../../utils/utils';
   import { signedXdr } from '../../services/simple-signer/store';
-  import WithdrawResult from './WithdrawResult.svelte';
+  import ResultXdrSection from '../ResultXdrSection.svelte';
+  import SignedXdrSection from '../SignedXdrSection.svelte';
 
-  const SimpleSigner = getContext('simpleSigner');
   const loansSdk = getContext('loansSdk');
   const server = getContext('stellar');
   const toast = getContext('toast');
@@ -64,10 +62,6 @@
     }
   }
 
-  async function handleSign() {
-    SimpleSigner.sign($unsignedXdr);
-  }
-
   onMount(async () => {
     await handleGetLoanStatus();
   });
@@ -76,18 +70,14 @@
 <div class="container">
   <LoanStatus />
 
-  {#if $loanStatus}
-    {#if $loanStatus.remainingDebt}
-      <SettleLoan handleSettleDebt={handleSettleDebt}>
-        <WithdrawResult
-          slot="result-component"
-          xdr={getShortenedText($unsignedXdr)}
-          handleSign={handleSign}
-        />
-        <WithdrawCollateral slot="withdraw-component" handleSendXdr={handleSendXdr} />
-      </SettleLoan>
-    {/if}
-  {/if}
+  <SettleLoan handleSettleDebt={handleSettleDebt} />
+
+  <ResultXdrSection resultXdr={$unsignedXdr} />
+
+  <SignedXdrSection
+    actionButtonText="Withdraw collateral"
+    handleActionButtonClick={handleSendXdr}
+  />
 
   <LoanStatusCodeSnippet />
 </div>
