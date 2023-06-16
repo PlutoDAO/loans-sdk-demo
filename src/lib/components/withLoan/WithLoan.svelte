@@ -40,6 +40,7 @@
   }
 
   async function handleSettleDebt() {
+    clearStores();
     toast.loading('Fetching XDR...');
 
     try {
@@ -60,7 +61,7 @@
       const result = await loansSdk.sendWithdrawCollateral(server, $borrower.publicKey, $signedXdr);
 
       if (result) {
-        $signedXdr = '';
+        clearStores();
         $borrower.hasLoan = false;
       }
 
@@ -73,6 +74,11 @@
 
   function handleOnSign() {
     simpleSigner.sign($unsignedXdr);
+  }
+
+  function clearStores() {
+    $signedXdr = '';
+    $unsignedXdr = '';
   }
 
   onMount(async () => {

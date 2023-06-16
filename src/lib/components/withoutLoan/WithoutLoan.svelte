@@ -56,6 +56,7 @@
 
     try {
       await sendLoan();
+      clearStores();
     } catch (e) {
       if (e instanceof Error) {
         const parsedError = JSON.parse(e.message);
