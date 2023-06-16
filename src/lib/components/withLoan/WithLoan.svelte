@@ -3,7 +3,7 @@
   import SettleLoan from './SettleLoan.svelte';
   import LoanStatus from './loanStatus/LoanStatus.svelte';
   import LoanStatusCodeSnippet from './loanStatus/LoanStatusCodeSnippet.svelte';
-  import { loanStatus } from './loanStatus/store';
+  import { loanStatus, isStatusLoading } from './loanStatus/store';
   import { error, unsignedXdr } from './store';
   import { getContext } from '../../services/context';
   import { borrower } from '../verifyAccount/store';
@@ -17,11 +17,10 @@
   const server = getContext('stellar');
   const toast = getContext('toast');
   const pUSD = { code: 'pUSD', issuer: 'GAZXGXY3B3VYKCJTWKQCSPFFLW7OT6D5NVMT2ZYUEFM7WDOR5B2NGKWS' };
-  let isStatusLoading = false;
 
   async function handleGetLoanStatus() {
     toast.loading('Getting loan status...');
-    isStatusLoading = true;
+    $isStatusLoading = true;
 
     try {
       $loanStatus = await loansSdk.getLoanStatus(server, $borrower.publicKey);
@@ -37,7 +36,7 @@
         }
       }
     } finally {
-      isStatusLoading = false;
+      $isStatusLoading = false;
     }
   }
 
