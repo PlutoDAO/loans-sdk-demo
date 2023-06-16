@@ -12,6 +12,7 @@
   import SignedXdrSection from '../SignedXdrSection.svelte';
 
   const loansSdk = getContext('loansSdk');
+  const simpleSigner = getContext('simpleSigner');
   const server = getContext('stellar');
   const toast = getContext('toast');
   const pUSD = { code: 'pUSD', issuer: 'GAZXGXY3B3VYKCJTWKQCSPFFLW7OT6D5NVMT2ZYUEFM7WDOR5B2NGKWS' };
@@ -70,6 +71,10 @@
     }
   }
 
+  function handleOnSign() {
+    simpleSigner.sign($unsignedXdr);
+  }
+
   onMount(async () => {
     await handleGetLoanStatus();
   });
@@ -80,7 +85,7 @@
 
   <SettleLoan handleSettleDebt={handleSettleDebt} />
 
-  <ResultXdrSection resultXdr={$unsignedXdr} />
+  <ResultXdrSection resultXdr={$unsignedXdr} handleOnSign={handleOnSign} />
 
   <SignedXdrSection
     actionButtonText="Withdraw collateral"

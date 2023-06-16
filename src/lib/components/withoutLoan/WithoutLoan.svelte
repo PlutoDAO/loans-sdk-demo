@@ -10,6 +10,7 @@
   import store from './store';
 
   const loansSdk = getContext('loansSdk');
+  const simpleSigner = getContext('simpleSigner');
   const server = getContext('stellar');
   const toast = getContext('toast');
 
@@ -77,6 +78,10 @@
     }
   }
 
+  function handleOnSign() {
+    simpleSigner.sign($store.loanXdr);
+  }
+
   function clearStores() {
     $store.loanXdr = '';
     $store.error = '';
@@ -89,7 +94,7 @@
     <SubmitBtn slot="submit-btn" text="Get Loan" onClick={handleGetLoan} />
   </GetLoan>
 
-  <ResultXdrSection resultXdr={$store.loanXdr} />
+  <ResultXdrSection resultXdr={$store.loanXdr} handleOnSign={handleOnSign} />
 
   <SignedXdrSection actionButtonText="Send loan" handleActionButtonClick={handleSendLoan} />
 

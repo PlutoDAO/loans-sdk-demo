@@ -1,10 +1,10 @@
 <script lang="ts">
   import Copy from '../../assets/Copy.svelte';
-  import SimpleSigner from '../services/simple-signer/SimpleSigner';
   import { getShortenedText } from '../utils/utils';
   import SectionBody from './SectionBody.svelte';
 
   export let resultXdr: string;
+  export let handleOnSign: () => void;
   let shortXdr = '';
 
   const inputProps = {
@@ -31,7 +31,7 @@
     <Copy />
   </button>
 
-  <button disabled={!resultXdr} slot="post-input" on:click={() => SimpleSigner.sign(resultXdr)}>
+  <button disabled={!resultXdr} slot="post-input" on:click={handleOnSign}>
     Sign with Simple Signer
   </button>
 </SectionBody>
