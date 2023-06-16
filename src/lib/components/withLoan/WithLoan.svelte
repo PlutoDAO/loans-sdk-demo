@@ -3,25 +3,22 @@
   import SettleLoan from './SettleLoan.svelte';
   import LoanStatus from './loanStatus/LoanStatus.svelte';
   import LoanStatusCodeSnippet from './loanStatus/LoanStatusCodeSnippet.svelte';
-  import { loanStatus } from './loanStatus/store';
+  import { loanStatus, isStatusLoading } from './loanStatus/store';
   import { error, unsignedXdr } from './store';
   import { getContext } from '../../services/context';
   import { borrower } from '../verifyAccount/store';
-  import WithdrawCollateral from './WithdrawCollateral.svelte';
-  import { getShortenedText } from '../../utils/utils';
   import { signedXdr } from '../../services/simple-signer/store';
-  import WithdrawResult from './WithdrawResult.svelte';
+  import ResultXdrSection from '../ResultXdrSection.svelte';
+  import SignedXdrSection from '../SignedXdrSection.svelte';
 
-  const SimpleSigner = getContext('simpleSigner');
   const loansSdk = getContext('loansSdk');
   const server = getContext('stellar');
   const toast = getContext('toast');
   const pUSD = { code: 'pUSD', issuer: 'GAZXGXY3B3VYKCJTWKQCSPFFLW7OT6D5NVMT2ZYUEFM7WDOR5B2NGKWS' };
-  let isStatusLoading = false;
 
   async function handleGetLoanStatus() {
     toast.loading('Getting loan status...');
-    isStatusLoading = true;
+    $isStatusLoading = true;
 
     try {
       $loanStatus = await loansSdk.getLoanStatus(server, $borrower.publicKey);
@@ -37,22 +34,27 @@
         }
       }
     } finally {
-      isStatusLoading = false;
+      $isStatusLoading = false;
     }
   }
 
   async function handleSettleDebt() {
+    toast.loading('Fetching XDR...');
+
     try {
       $unsignedXdr = '';
-
       const asset = new loansSdk.LoanAssetRequest(false, pUSD.code, pUSD.issuer);
       $unsignedXdr = await loansSdk.getSettleDebtIntent(server, $borrower.publicKey, asset);
+      toast.success('Success!');
     } catch (e) {
+      toast.error("Couldn't fetch XDR");
       throw new Error(`${e}`);
     }
   }
 
   async function handleSendXdr() {
+    toast.loading('Sending XDR...');
+
     try {
       const result = await loansSdk.sendWithdrawCollateral(server, $borrower.publicKey, $signedXdr);
 
@@ -60,13 +62,12 @@
         $signedXdr = '';
         $borrower.hasLoan = false;
       }
+
+      toast.success('Success!');
     } catch (e) {
+      toast.error("Couldn't send XDR");
       throw new Error(`${e}`);
     }
-  }
-
-  async function handleSign() {
-    SimpleSigner.sign($unsignedXdr);
   }
 
   onMount(async () => {
@@ -75,22 +76,16 @@
 </script>
 
 <div class="container">
-  {#if !isStatusLoading}
-    <LoanStatus />
-  {/if}
+  <LoanStatus />
 
-  {#if $loanStatus}
-    {#if $loanStatus.remainingDebt}
-      <SettleLoan handleSettleDebt={handleSettleDebt}>
-        <WithdrawResult
-          slot="result-component"
-          xdr={getShortenedText($unsignedXdr)}
-          handleSign={handleSign}
-        />
-        <WithdrawCollateral slot="withdraw-component" handleSendXdr={handleSendXdr} />
-      </SettleLoan>
-    {/if}
-  {/if}
+  <SettleLoan handleSettleDebt={handleSettleDebt} />
+
+  <ResultXdrSection resultXdr={$unsignedXdr} />
+
+  <SignedXdrSection
+    actionButtonText="Withdraw collateral"
+    handleActionButtonClick={handleSendXdr}
+  />
 
   <LoanStatusCodeSnippet />
 </div>
@@ -99,8 +94,5 @@
   .container {
     width: 100%;
     max-width: 700px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
   }
 </style>
