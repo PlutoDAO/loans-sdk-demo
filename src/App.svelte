@@ -23,19 +23,25 @@
   onMount(async () => {
     isLoading = true;
 
-    const borrower = await verifyBorrowerConnection();
+    try {
+      const borrower = await verifyBorrowerConnection();
 
-    if (borrower) {
-      $storeBorrower = borrower;
-      $isUserConnected = true;
+      if (borrower) {
+        $storeBorrower = borrower;
+        $isUserConnected = true;
+      }
+    } catch (e) {
+      console.error(e);
+      toast.error(`Couldn't verify account`);
+    } finally {
+      isLoading = false;
     }
-
-    isLoading = false;
   });
 </script>
 
 <Router primary={false}>
   <SvelteToast />
+
   {#if !isLoading}
     <VerifyAccount />
     <main class="main-container">
