@@ -49,7 +49,7 @@
       $unsignedXdr = await loansSdk.getSettleDebtIntent(server, $borrower.publicKey, asset);
       toast.success('Success!');
     } catch (e) {
-      toast.error("Couldn't fetch XDR");
+      toast.error("Couldn't fetch the XDR");
       throw new Error(`${e}`);
     }
   }
