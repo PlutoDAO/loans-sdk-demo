@@ -7,6 +7,10 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  --toastContainerTop: 1rem;
+  --toastContainerRight: auto;
+  --toastContainerBottom: auto;
+  --toastContainerLeft: calc(50vw - 8rem);
 }
 
 label {
@@ -59,7 +63,7 @@ button {
   border: 1px solid transparent;
   padding: 5px;
   font-size: 1em;
-  font-weight: 500;
+  font-weight: 400;
   font-family: inherit;
   cursor: pointer;
   transition: border-color 0.25s;
@@ -87,6 +91,7 @@ button:focus-visible {
   }
 
   button {
-    background-color: #f9f9f9;
+    color: white;
+    background-color: #242b3f;
   }
 }

@@ -1,6 +1,6 @@
 import { type AccountResponse, Server } from 'stellar-sdk';
 
-import LocalStorage from '../../../lib/storage/LocalStorage';
+import LocalStorage from '../../../../lib/storage/LocalStorage';
 import type IAsset from '../IAsset';
 import type IBorrower from '../IBorrower';
 
@@ -12,10 +12,7 @@ export function mapAccountResponse(account: AccountResponse): IBorrower {
   let hasLoan = false;
 
   for (const balance of account.balances) {
-    if (
-      balance.asset_type === 'credit_alphanum4' ||
-      balance.asset_type === 'credit_alphanum12'
-    ) {
+    if (balance.asset_type === 'credit_alphanum4' || balance.asset_type === 'credit_alphanum12') {
       assets.push({ code: balance.asset_code, balance: balance.balance });
     } else {
       assets.push({ code: balance.asset_type, balance: balance.balance });
