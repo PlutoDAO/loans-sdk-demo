@@ -39,17 +39,22 @@
   }
 
   async function handleSettleDebt() {
+    toast.loading('Fetching XDR...');
+
     try {
       $unsignedXdr = '';
-
       const asset = new loansSdk.LoanAssetRequest(false, pUSD.code, pUSD.issuer);
       $unsignedXdr = await loansSdk.getSettleDebtIntent(server, $borrower.publicKey, asset);
+      toast.success('Success!');
     } catch (e) {
+      toast.error("Couldn't fetch XDR");
       throw new Error(`${e}`);
     }
   }
 
   async function handleSendXdr() {
+    toast.loading('Sending XDR...');
+
     try {
       const result = await loansSdk.sendWithdrawCollateral(server, $borrower.publicKey, $signedXdr);
 
@@ -57,7 +62,10 @@
         $signedXdr = '';
         $borrower.hasLoan = false;
       }
+
+      toast.success('Success!');
     } catch (e) {
+      toast.error("Couldn't send XDR");
       throw new Error(`${e}`);
     }
   }
