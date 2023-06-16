@@ -74,9 +74,7 @@
 </script>
 
 <div class="container">
-  {#if !isStatusLoading}
-    <LoanStatus />
-  {/if}
+  <LoanStatus />
 
   {#if $loanStatus}
     {#if $loanStatus.remainingDebt}

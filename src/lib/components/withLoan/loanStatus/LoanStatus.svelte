@@ -1,9 +1,6 @@
 <script lang="ts">
   import SectionTitle from '../../SectionTitle.svelte';
-  import { loanStatus } from './store';
-
-  let isLoading = false;
-  let error = '';
+  import { isStatusLoading, loanStatus } from './store';
 </script>
 
 <svelte:head>
@@ -18,33 +15,26 @@
   />
 </svelte:head>
 
-{#if isLoading}
-  Loading...
-{/if}
-
-{#if $loanStatus && !isLoading}
-  <SectionTitle title="Loan Status" />
-  <div class="status-container">
-    <p class="soft-text">
-      Percentage Paid:
-      <span class="strong-text">
-        {$loanStatus.percentagePaid}%
-      </span>
-    </p>
-    <p class="soft-text">
-      Remaining Debt: <span class="strong-text">{$loanStatus.remainingDebt}</span>
-    </p>
-    <p class="soft-text">
-      yUSDC in Vault: <span class="strong-text">
-        {$loanStatus.userTotalYusdcInVault}
-      </span>
-    </p>
-  </div>
-{/if}
-
-{#if error && !isLoading}
-  <p>{error}</p>
-{/if}
+<SectionTitle title="Loan Status" />
+<div class="status-container">
+  <p class="soft-text">
+    Percentage Paid:
+    <span class="strong-text">
+      {!$isStatusLoading ? `${$loanStatus.percentagePaid}%` : 'Loading...'}
+    </span>
+  </p>
+  <p class="soft-text">
+    Remaining Debt:
+    <span class="strong-text">
+      {!$isStatusLoading ? $loanStatus.remainingDebt : 'Loading...'}
+    </span>
+  </p>
+  <p class="soft-text">
+    yUSDC in Vault: <span class="strong-text">
+      {!$isStatusLoading ? $loanStatus.userTotalYusdcInVault : 'Loading...'}
+    </span>
+  </p>
+</div>
 
 <style>
   .strong-text {
