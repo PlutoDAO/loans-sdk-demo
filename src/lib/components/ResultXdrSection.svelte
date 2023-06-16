@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Copy from '../../assets/Copy.svelte';
+  import CopyIcon from '../../assets/Copy.svelte';
   import { getShortenedText } from '../utils/utils';
   import SectionBody from './SectionBody.svelte';
 
@@ -28,7 +28,7 @@
   disabled={inputProps.disabled}
 >
   <button slot="input-button" class="copy-btn" on:click={copyXdrToClipboard}>
-    <Copy />
+    <CopyIcon />
   </button>
 
   <button disabled={!resultXdr} slot="post-input" on:click={handleOnSign}>
