@@ -25,7 +25,7 @@
 import {LoanAssetRequest, ApiStellarNetwork} from 'pluto-loans-sdk';
 
 const server: ApiStellarNetwork = 'testnet'; // 'testnet' | 'public'
-const borrower ='GAIRISXKPLOWZBMFRPU5XRGUUX3VMA3ZEWKBM5MSNRU3CHV6P4PYZ74D';
+const borrower = 'GAIRISXKPLOWZBMFRPU5XRGUUX3VMA3ZEWKBM5MSNRU3CHV6P4PYZ74D';
 const asset = new LoanAssetRequest('yUSDC', 'GDGTVWSM4MGS4T7Z6W4RPWOCHE2I6RDFCIFZGS3DOA63LWQTRNZNTTFF', false);
 const amount = '150';
 const entryBalance = new BalanceDto(asset, amount);
