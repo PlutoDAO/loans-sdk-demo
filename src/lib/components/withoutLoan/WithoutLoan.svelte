@@ -1,18 +1,17 @@
 <script lang="ts">
   import { getContext } from '../../services/context';
   import { signedXdr } from '../../services/simple-signer/store';
+  import ResultXdrSection from '../ResultXdrSection.svelte';
+  import SignedXdrSection from '../SignedXdrSection.svelte';
   import SubmitBtn from '../SubmitBtn.svelte';
   import { borrower, loanAmount } from '../verifyAccount/store';
   import GetLoan from './GetLoan.svelte';
-  import LoanResult from './LoanResult.svelte';
-  import SendLoan from './SendLoan.svelte';
   import GetLoanIntentSnippet from './snippets/GetLoanIntentSnippet.svelte';
   import store from './store';
 
   const loansSdk = getContext('loansSdk');
   const server = getContext('stellar');
   const toast = getContext('toast');
-  const xdrPlaceholder = 'AAAAAgAAAABZzPGvncdHP5v4MhkSJFcKj9p5L5Q4SUJ5WttL';
 
   let balance = getAccountXlmBalance();
 
@@ -90,11 +89,9 @@
     <SubmitBtn slot="submit-btn" text="Get Loan" onClick={handleGetLoan} />
   </GetLoan>
 
-  <LoanResult />
+  <ResultXdrSection resultXdr={$store.loanXdr} />
 
-  <SendLoan inputPlaceHolder={xdrPlaceholder}>
-    <SubmitBtn slot="submit-btn" text="Send Loan" onClick={handleSendLoan} />
-  </SendLoan>
+  <SignedXdrSection actionButtonText="Send loan" handleActionButtonClick={handleSendLoan} />
 
   <GetLoanIntentSnippet />
 </div>
