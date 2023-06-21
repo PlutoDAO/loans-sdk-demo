@@ -2,7 +2,7 @@
   export let title: string;
 </script>
 
-<h4 class="get-loan-title">{title}</h4>
+<h4 class="get-loan-title" data-cy="section-title">{title}</h4>
 <hr class="solid" />
 
 <style>

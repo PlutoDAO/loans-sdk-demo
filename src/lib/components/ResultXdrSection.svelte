@@ -31,7 +31,7 @@
     <CopyIcon />
   </button>
 
-  <button disabled={!resultXdr} slot="post-input" on:click={handleOnSign}>
+  <button disabled={!resultXdr} slot="post-input" on:click={handleOnSign} data-cy="sign-btn">
     Sign with Simple Signer
   </button>
 </SectionBody>

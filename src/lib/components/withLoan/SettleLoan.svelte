@@ -3,7 +3,7 @@
   export let handleSettleDebt: () => void;
 </script>
 
-<button on:click={handleSettleDebt}>
+<button on:click={handleSettleDebt} data-cy="settle-loan-btn">
   <p>{text}</p>
 </button>
 

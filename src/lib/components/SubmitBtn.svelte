@@ -5,7 +5,7 @@
 </script>
 
 <div class="submit-container">
-  <button on:click={onClick} disabled={isDisable}>
+  <button on:click={onClick} disabled={isDisable} data-cy="submit-btn">
     <p>{text}</p>
   </button>
 </div>

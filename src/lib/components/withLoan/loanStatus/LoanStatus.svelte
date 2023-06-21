@@ -19,17 +19,17 @@
 <div class="status-container">
   <p class="soft-text">
     Percentage Paid:
-    <span class="strong-text">
+    <span class="strong-text" data-cy="percentage-paid">
       {!$isStatusLoading ? `${$loanStatus.percentagePaid}%` : 'Loading...'}
     </span>
   </p>
   <p class="soft-text">
     Remaining Debt:
-    <span class="strong-text">
+    <span class="strong-text" data-cy="remaining-debt">
       {!$isStatusLoading ? $loanStatus.remainingDebt : 'Loading...'}
     </span>
   </p>
-  <p class="soft-text">
+  <p class="soft-text" data-cy="vault-total-yusdc">
     yUSDC in Vault: <span class="strong-text">
       {!$isStatusLoading ? $loanStatus.userTotalYusdcInVault : 'Loading...'}
     </span>

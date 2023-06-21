@@ -17,7 +17,7 @@
   placeholder={inputProps.placeholder}
 >
   <div slot="prev-input" class="loan-amount-container">
-    <div class="account-balance-container">
+    <div class="account-balance-container" data-cy="account-balance">
       <p class="text-light">{`Available: `}</p>
       <p class="text-heavy">{`${balance} XLM`}</p>
     </div>
