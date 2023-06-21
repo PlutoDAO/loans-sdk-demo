@@ -15,11 +15,10 @@ describe('Without loan', () => {
   });
 
   it('should display the GetLoan component', () => {
-    cy.get('.without-loan-container > :nth-child(1)').should('contain.text', 'Get a loan with XLM');
-
-    cy.get('p.s-GAt-MwJF1cns').should('contain.text', shortedPublicKey);
+    cy.get('[data-cy="section-title"]').should('contain.text', 'Get a loan with XLM');
+    cy.get('[data-cy="account-key"]').should('contain.text', shortedPublicKey);
     cy.get('.text-light').should('contain.text', 'Available');
     cy.get('.text-heavy').should('contain.text', `${balance} XLM`);
-    cy.get('button.s-0CazcjK6piK9').should('contain.text', 'Get Loan');
+    cy.get('[data-cy="submit-btn"]').should('contain.text', 'Get Loan');
   });
 });

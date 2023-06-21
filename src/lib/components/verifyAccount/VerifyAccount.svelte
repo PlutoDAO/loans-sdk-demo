@@ -28,7 +28,7 @@
 <div class="verify-account-container">
   {#if $isUserConnected && $borrower}
     <div class="account-container">
-      <p>{getShortenedText($borrower.publicKey)}</p>
+      <p data-cy="account-key">{getShortenedText($borrower.publicKey)}</p>
       <button on:click={handleRemoveBorrower}>Disconnect</button>
     </div>
   {:else}

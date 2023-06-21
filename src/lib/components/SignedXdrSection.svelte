@@ -9,7 +9,12 @@
 </script>
 
 <SectionBody title="Signed Xdr" bind:value={$signedXdr} placeholder={xdrPlaceholder}>
-  <button disabled={!$signedXdr} slot="post-input" on:click={handleActionButtonClick}>
+  <button
+    disabled={!$signedXdr}
+    slot="post-input"
+    on:click={handleActionButtonClick}
+    data-cy="send-xdr-btn"
+  >
     {actionButtonText}
   </button>
 </SectionBody>

@@ -10,15 +10,16 @@ describe('Result', () => {
     cy.intercept(stellarMockUrl, { statusCode: 200, body: accountMock }).as('mockAccount');
     window.localStorage.setItem('borrower', accountMock.account_id);
     cy.visit('/');
+    cy.get('[data-cy="section-title"]').as('sectionTitle');
   });
 
   it('should display the Result component', () => {
-    cy.get('.without-loan-container > :nth-child(4)').should('contain.text', 'Result');
-    cy.get(':nth-child(6) > [slot="post-input"]').should('contain.text', 'Sign with Simple Signer');
+    cy.get('@sectionTitle').should('contain.text', 'Result');
+    cy.get('[data-cy="sign-btn"]').should('contain.text', 'Sign with Simple Signer');
   });
 
   it('should display the Signed XDR component', () => {
-    cy.get('.without-loan-container > :nth-child(7)').should('contain.text', 'Signed Xdr');
-    cy.get('.s-Izg6ARoN1pyF').should('contain.text', 'Send loan');
+    cy.get('@sectionTitle').should('contain.text', 'Signed Xdr');
+    cy.get('[data-cy="send-xdr-btn"]').should('contain.text', 'Send loan');
   });
 });
