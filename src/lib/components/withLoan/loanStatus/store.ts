@@ -7,4 +7,5 @@ export const loanStatus = writable<LoanStatusResponse>({
   userTotalYusdcInVault: 0,
 });
 
+export const hasLoanBeenPaid = writable<boolean>(false);
 export const isStatusLoading = writable<boolean>(false);
