@@ -1,9 +1,10 @@
 <script lang="ts">
+  export let text: string;
   export let handleSettleDebt: () => void;
 </script>
 
 <button on:click={handleSettleDebt}>
-  <p>Settle debt</p>
+  <p>{text}</p>
 </button>
 
 <style>
