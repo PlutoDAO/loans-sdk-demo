@@ -1,0 +1,15 @@
+{
+  "account_id": "",
+  "sequence": "513480520105985",
+  "balances": [
+    {
+      "balance": "10000.0000000",
+      "asset_type": "native"
+    },
+    {
+      "balance": "10",
+      "asset_type": "credit_alphanum12",
+      "asset_code": "lCOLLATERAL"
+    }
+  ]
+}
