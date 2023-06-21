@@ -51,7 +51,7 @@ The page also shows a code snippet to help developers with the loan request proc
 
 ### Withdraw Collateral
 
-If you already have a loan, the page will display your loan status and a button to settle the loan. Even though the loan is designed to get paid by itself with the earnings it generates, the user also has the option to settle the debt in advance. In order to do so, they can deposit the total of the remaining debt in yUSDC
+If you already have a loan, the page will display your loan status and a button to settle the loan. Even though the loan is designed to get paid by itself with the earnings it generates, the user also has the option to settle the debt in advance. In order to do so, they can deposit the total of the remaining debt in pUSD
 
 Once the debt is fully settled the user will have the option to withdraw the original collateral.
 
