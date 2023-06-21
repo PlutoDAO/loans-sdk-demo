@@ -19,6 +19,18 @@ You can access the demo at https://plutodao.github.io/loans-sdk-demo/.
           <td>Runs the app in dev mode</td>
       </tr>
       <tr>
+        <td>build</td>
+        <td>Builds the application for production</td>
+      </td>
+      <tr>
+        <td>preview</td>
+        <td>Previews the built application</td>
+      </td>
+      <tr>
+        <td>deploy</td>
+        <td>Deploys the application</td>
+      </td>
+      <tr>
         <td>test:ui:dev</td>
         <td>Runs Cypress integration tests</td>
       </td>
