@@ -6,5 +6,6 @@ export default defineConfig({
       // implement node event listeners here
     },
     baseUrl: 'http://localhost:5173/loans-sdk-demo/',
+    experimentalRunAllSpecs: true,
   },
 });
