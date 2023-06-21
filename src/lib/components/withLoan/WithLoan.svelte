@@ -3,7 +3,7 @@
   import SettleLoan from './SettleLoan.svelte';
   import LoanStatus from './loanStatus/LoanStatus.svelte';
   import LoanStatusCodeSnippet from './loanStatus/LoanStatusCodeSnippet.svelte';
-  import { loanStatus, isStatusLoading } from './loanStatus/store';
+  import { loanStatus, isStatusLoading, hasLoanBeenPaid } from './loanStatus/store';
   import { error, unsignedXdr } from './store';
   import { getContext } from '../../services/context';
   import { borrower } from '../verifyAccount/store';
@@ -23,6 +23,7 @@
 
     try {
       $loanStatus = await loansSdk.getLoanStatus(server, $borrower.publicKey);
+      $hasLoanBeenPaid = $loanStatus.remainingDebt <= 0;
       toast.success('Loan status retrieved successfully');
     } catch (e) {
       if (e instanceof Error) {
@@ -45,12 +46,26 @@
 
     try {
       $unsignedXdr = '';
-      const asset = new loansSdk.LoanAssetRequest(false, pUSD.code, pUSD.issuer);
-      $unsignedXdr = await loansSdk.getSettleDebtIntent(server, $borrower.publicKey, asset);
+
+      if ($hasLoanBeenPaid) {
+        await getWithdrawCollateralIntent();
+      } else {
+        await settleDebt();
+      }
+
       toast.success('Success!');
     } catch (e) {
       toast.error("Couldn't fetch the XDR");
       throw new Error(`${e}`);
+    }
+
+    async function settleDebt() {
+      const asset = new loansSdk.LoanAssetRequest(false, pUSD.code, pUSD.issuer);
+      $unsignedXdr = await loansSdk.getSettleDebtIntent(server, $borrower.publicKey, asset);
+    }
+
+    async function getWithdrawCollateralIntent() {
+      $unsignedXdr = await loansSdk.getWithdrawCollateralIntent(server, $borrower.publicKey);
     }
   }
 
@@ -89,7 +104,10 @@
 <div class="container">
   <LoanStatus />
 
-  <SettleLoan handleSettleDebt={handleSettleDebt} />
+  <SettleLoan
+    text={$hasLoanBeenPaid ? 'Withdraw Collateral Intent' : 'Settle debt'}
+    handleSettleDebt={handleSettleDebt}
+  />
 
   <ResultXdrSection resultXdr={$unsignedXdr} handleOnSign={handleOnSign} />
 
