@@ -4,7 +4,7 @@ The loans-sdk-demo is a web application that displays the product interface for 
 
 You can access the demo at https://plutodao.github.io/loans-sdk-demo/.
 
-## How to run it
+## How to run it?
 
 <table>
     <thead>
@@ -39,17 +39,17 @@ You can access the demo at https://plutodao.github.io/loans-sdk-demo/.
 
 ## How it works?
 
-### Verify your account
+### Verify your Account
 
 In order to request a loan, you need to connect a Stellar account. We use [Simple Signer](https://github.com/PlutoDAO/simple-stellar-signer/) to achieve that. This will give us information about if you have or haven't a loan.
 
-### Requesting a Loan
+### Request a Loan
 
 Shows a form where the user can request a loan by depositing the collateral amount. In order to request the loan the collateral amount and user's public key will get sent to the backend through a POST method that'll return and unsigned transaction. Then, the user will need to sign it to then submit the signed transaction to the backend. Once this is done the backend will submit the transaction to Stellar Network.
 
 The page also shows a code snippet to help developers with the loan request process.
 
-### Withdraw collateral
+### Withdraw Collateral
 
 If you already have a loan, the page will display your loan status and a button to settle the loan. Even though the loan is designed to get paid by itself with the earnings it generates, the user also has the option to settle the debt in advance. In order to do so, they can deposit the total of the remaining debt in yUSDC
 
