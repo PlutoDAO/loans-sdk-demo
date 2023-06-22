@@ -15,7 +15,7 @@
 
   let isLoading = false;
 
-  setContext('app', {
+  setContext('appDependencies', {
     server,
     SimpleSigner,
     loansSdk,

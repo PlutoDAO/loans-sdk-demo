@@ -9,7 +9,7 @@
   import GetLoanIntentSnippet from './snippets/GetLoanIntentSnippet.svelte';
   import { isSendingTheLoan, loanAmount, loanXdr } from './store';
 
-  const { loansSdk, server, toast, SimpleSigner } = getContext('app');
+  const { loansSdk, server, toast, SimpleSigner } = getContext('appDependencies');
   let balance = getAccountXlmBalance();
 
   function getAccountXlmBalance() {
