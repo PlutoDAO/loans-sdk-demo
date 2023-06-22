@@ -1,21 +1,14 @@
 <script lang="ts">
+  import Input from '../Input.svelte';
   import SectionBody from '../SectionBody.svelte';
   import { loanAmount } from '../verifyAccount/store';
 
   export let balance: string;
-
-  const inputProps = {
-    type: { type: 'number' },
-    placeholder: '100',
-  };
 </script>
 
-<SectionBody
-  title="Get a loan with XLM"
-  bind:value={$loanAmount}
-  type={inputProps.type}
-  placeholder={inputProps.placeholder}
->
+<SectionBody title="Get a loan with XLM">
+  <Input slot="input-label" bind:value={$loanAmount} type={'number'} placeholder={'100'} />
+
   <div slot="prev-input" class="loan-amount-container">
     <div class="account-balance-container" data-cy="account-balance">
       <p class="text-light">{`Available: `}</p>
