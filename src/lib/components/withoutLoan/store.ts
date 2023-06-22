@@ -1,9 +1,5 @@
 import { writable } from 'svelte/store';
 
-const withoutLoanStore = writable({
-  loanXdr: '',
-  loanAmount: '',
-  isSendingTheLoan: false,
-});
-
-export default withoutLoanStore;
+export const loanXdr = writable('');
+export const loanAmount = writable('');
+export const isSendingTheLoan = writable(false);

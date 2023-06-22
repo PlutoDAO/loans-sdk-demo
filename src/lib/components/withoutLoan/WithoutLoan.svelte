@@ -7,7 +7,7 @@
   import { borrower } from '../verifyAccount/store';
   import GetLoan from './GetLoan.svelte';
   import GetLoanIntentSnippet from './snippets/GetLoanIntentSnippet.svelte';
-  import store from './store';
+  import { isSendingTheLoan, loanAmount, loanXdr } from './store';
 
   const { loansSdk, server, toast, SimpleSigner } = getContext('app');
   let balance = getAccountXlmBalance();
@@ -24,7 +24,7 @@
 
   async function getLoanXdr() {
     const asset = new loansSdk.LoanAssetRequest(true);
-    const entryBalance = new loansSdk.BalanceDto(asset, $store.loanAmount);
+    const entryBalance = new loansSdk.BalanceDto(asset, $loanAmount);
 
     return await loansSdk.getLoanIntent(server, $borrower.publicKey, entryBalance);
   }
@@ -32,14 +32,14 @@
   async function handleGetLoan() {
     toast.loading('Fetching XDR...');
 
-    if (!$store.loanAmount) {
+    if (!$loanAmount) {
       toast.error('Loan amount is required.');
       return;
     }
 
     try {
       clearStores();
-      $store.loanXdr = await getLoanXdr();
+      $loanXdr = await getLoanXdr();
       toast.success('Success!');
     } catch (e) {
       if (e instanceof Error) {
@@ -51,7 +51,7 @@
 
   async function handleSendLoan() {
     toast.loading('Sending XDR...');
-    if ($store.isSendingTheLoan) {
+    if ($isSendingTheLoan) {
       return;
     }
 
@@ -64,12 +64,12 @@
         toast.error(`Error status ${parsedError.status}: ${parsedError.detail}`);
       }
     } finally {
-      $store.isSendingTheLoan = false;
+      $isSendingTheLoan = false;
     }
 
     async function sendLoan() {
       const response = await loansSdk.sendLoan(server, $borrower.publicKey, $signedXdr);
-      $store.isSendingTheLoan = true;
+      $isSendingTheLoan = true;
 
       if (response) {
         toast.success('Success!');
@@ -81,11 +81,11 @@
   }
 
   function handleOnSign() {
-    SimpleSigner.sign($store.loanXdr);
+    SimpleSigner.sign($loanXdr);
   }
 
   function clearStores() {
-    $store.loanXdr = '';
+    $loanXdr = '';
     $signedXdr = '';
   }
 </script>
@@ -95,7 +95,7 @@
     <SubmitBtn slot="submit-btn" text="Get Loan" onClick={handleGetLoan} />
   </GetLoan>
 
-  <ResultXdrSection resultXdr={$store.loanXdr} handleOnSign={handleOnSign} />
+  <ResultXdrSection resultXdr={$loanXdr} handleOnSign={handleOnSign} />
 
   <SignedXdrSection actionButtonText="Send loan" handleActionButtonClick={handleSendLoan} />
 
