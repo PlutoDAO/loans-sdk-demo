@@ -10,7 +10,7 @@
 </script>
 
 <SectionBody title="Signed Xdr">
-  <Input slot="input-label" value={$signedXdr} type={'text'} placeholder={xdrPlaceholder} />
+  <Input slot="input-label" bind:value={$signedXdr} type={'text'} placeholder={xdrPlaceholder} />
 
   <button
     disabled={!$signedXdr}
