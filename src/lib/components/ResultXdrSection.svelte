@@ -17,7 +17,7 @@
 </script>
 
 <SectionBody title="Result">
-  <input slot="input-label" value={shortXdr} type={'text'} disabled={true} />
+  <input slot="input-label" value={shortXdr} type="text" disabled={true} />
 
   <button slot="input-button" class="copy-btn" on:click={copyXdrToClipboard}>
     <CopyIcon />
