@@ -4,16 +4,12 @@
   import ResultXdrSection from '../ResultXdrSection.svelte';
   import SignedXdrSection from '../SignedXdrSection.svelte';
   import SubmitBtn from '../SubmitBtn.svelte';
-  import { borrower, loanAmount } from '../verifyAccount/store';
+  import { borrower } from '../verifyAccount/store';
   import GetLoan from './GetLoan.svelte';
   import GetLoanIntentSnippet from './snippets/GetLoanIntentSnippet.svelte';
-  import store from './store';
+  import { isSendingTheLoan, loanAmount, loanXdr } from './store';
 
-  const loansSdk = getContext('loansSdk');
-  const simpleSigner = getContext('simpleSigner');
-  const server = getContext('stellar');
-  const toast = getContext('toast');
-
+  const { loansSdk, server, toast, SimpleSigner } = getContext('appDependencies');
   let balance = getAccountXlmBalance();
 
   function getAccountXlmBalance() {
@@ -26,9 +22,15 @@
     throw new Error();
   }
 
+  async function getLoanXdr() {
+    const asset = new loansSdk.LoanAssetRequest(true);
+    const entryBalance = new loansSdk.BalanceDto(asset, $loanAmount);
+
+    return await loansSdk.getLoanIntent(server, $borrower.publicKey, entryBalance);
+  }
+
   async function handleGetLoan() {
     toast.loading('Fetching XDR...');
-    clearStores();
 
     if (!$loanAmount) {
       toast.error('Loan amount is required.');
@@ -36,21 +38,20 @@
     }
 
     try {
-      const asset = new loansSdk.LoanAssetRequest(true);
-      const entryBalance = new loansSdk.BalanceDto(asset, `${$loanAmount}`);
-      $store.loanXdr = await loansSdk.getLoanIntent(server, $borrower.publicKey, entryBalance);
+      clearStores();
+      $loanXdr = await getLoanXdr();
       toast.success('Success!');
     } catch (e) {
       if (e instanceof Error) {
         const parsedError = JSON.parse(e.message);
-        $store.error = `Error status ${parsedError.status}: ${parsedError.detail}`;
+        toast.error(`Error status ${parsedError.status}: ${parsedError.detail}`);
       }
     }
   }
 
   async function handleSendLoan() {
     toast.loading('Sending XDR...');
-    if ($store.isSendingTheLoan) {
+    if ($isSendingTheLoan) {
       return;
     }
 
@@ -63,12 +64,12 @@
         toast.error(`Error status ${parsedError.status}: ${parsedError.detail}`);
       }
     } finally {
-      $store.isSendingTheLoan = false;
+      $isSendingTheLoan = false;
     }
 
     async function sendLoan() {
       const response = await loansSdk.sendLoan(server, $borrower.publicKey, $signedXdr);
-      $store.isSendingTheLoan = true;
+      $isSendingTheLoan = true;
 
       if (response) {
         toast.success('Success!');
@@ -80,12 +81,11 @@
   }
 
   function handleOnSign() {
-    simpleSigner.sign($store.loanXdr);
+    SimpleSigner.sign($loanXdr);
   }
 
   function clearStores() {
-    $store.loanXdr = '';
-    $store.error = '';
+    $loanXdr = '';
     $signedXdr = '';
   }
 </script>
@@ -95,7 +95,7 @@
     <SubmitBtn slot="submit-btn" text="Get Loan" onClick={handleGetLoan} />
   </GetLoan>
 
-  <ResultXdrSection resultXdr={$store.loanXdr} handleOnSign={handleOnSign} />
+  <ResultXdrSection resultXdr={$loanXdr} handleOnSign={handleOnSign} />
 
   <SignedXdrSection actionButtonText="Send loan" handleActionButtonClick={handleSendLoan} />
 

@@ -8,7 +8,9 @@
   const xdrPlaceholder = 'AAAAAgAAAABZzPGvncdHP5v4MhkSJFcKj9p5L5Q4SUJ5WttL';
 </script>
 
-<SectionBody title="Signed Xdr" bind:value={$signedXdr} placeholder={xdrPlaceholder}>
+<SectionBody title="Signed Xdr">
+  <input slot="input-label" bind:value={$signedXdr} type="text" placeholder={xdrPlaceholder} />
+
   <button
     disabled={!$signedXdr}
     slot="post-input"

@@ -7,11 +7,6 @@
   export let handleOnSign: () => void;
   let shortXdr = '';
 
-  const inputProps = {
-    type: { type: 'text' },
-    disabled: true,
-  };
-
   $: if (resultXdr) {
     shortXdr = getShortenedText(resultXdr);
   }
@@ -21,12 +16,9 @@
   }
 </script>
 
-<SectionBody
-  title="Result"
-  bind:value={shortXdr}
-  type={inputProps.type}
-  disabled={inputProps.disabled}
->
+<SectionBody title="Result">
+  <input slot="input-label" value={shortXdr} type="text" disabled={true} />
+
   <button slot="input-button" class="copy-btn" on:click={copyXdrToClipboard}>
     <CopyIcon />
   </button>
