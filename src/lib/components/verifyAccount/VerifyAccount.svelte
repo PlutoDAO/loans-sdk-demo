@@ -5,7 +5,7 @@
   import { getBorrowerFromStellarAccount, removeBorrower } from './helpers/helpers';
   import { borrower, isUserConnected } from './store';
 
-  const SimpleSigner = getContext('simpleSigner');
+  const { SimpleSigner } = getContext('app');
 
   async function handleVerifyStellarAccount() {
     $borrower = await getBorrowerFromStellarAccount($publicKey);

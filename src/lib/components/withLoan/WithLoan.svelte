@@ -11,10 +11,7 @@
   import ResultXdrSection from '../ResultXdrSection.svelte';
   import SignedXdrSection from '../SignedXdrSection.svelte';
 
-  const loansSdk = getContext('loansSdk');
-  const simpleSigner = getContext('simpleSigner');
-  const server = getContext('stellar');
-  const toast = getContext('toast');
+  const { loansSdk, server, toast, SimpleSigner } = getContext('app');
   const pUSD = { code: 'pUSD', issuer: 'GAZXGXY3B3VYKCJTWKQCSPFFLW7OT6D5NVMT2ZYUEFM7WDOR5B2NGKWS' };
 
   async function handleGetLoanStatus() {
@@ -88,7 +85,7 @@
   }
 
   function handleOnSign() {
-    simpleSigner.sign($unsignedXdr);
+    SimpleSigner.sign($unsignedXdr);
   }
 
   function clearStores() {

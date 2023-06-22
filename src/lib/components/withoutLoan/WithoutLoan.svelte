@@ -9,11 +9,7 @@
   import GetLoanIntentSnippet from './snippets/GetLoanIntentSnippet.svelte';
   import store from './store';
 
-  const loansSdk = getContext('loansSdk');
-  const simpleSigner = getContext('simpleSigner');
-  const server = getContext('stellar');
-  const toast = getContext('toast');
-
+  const { loansSdk, server, toast, SimpleSigner } = getContext('app');
   let balance = getAccountXlmBalance();
 
   function getAccountXlmBalance() {
@@ -85,7 +81,7 @@
   }
 
   function handleOnSign() {
-    simpleSigner.sign($store.loanXdr);
+    SimpleSigner.sign($store.loanXdr);
   }
 
   function clearStores() {

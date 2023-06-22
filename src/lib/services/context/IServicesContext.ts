@@ -4,8 +4,10 @@ import type SimpleSigner from '../simple-signer/SimpleSigner';
 import type toast from '../toast';
 
 export default interface IServicesContext {
-  stellar: loansSdk.ApiStellarNetwork;
-  simpleSigner: typeof SimpleSigner;
-  loansSdk: typeof loansSdk;
-  toast: typeof toast;
+  app: {
+    server: loansSdk.ApiStellarNetwork;
+    SimpleSigner: typeof SimpleSigner;
+    loansSdk: typeof loansSdk;
+    toast: typeof toast;
+  };
 }

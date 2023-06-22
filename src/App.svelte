@@ -15,10 +15,12 @@
 
   let isLoading = false;
 
-  setContext('stellar', server);
-  setContext('simpleSigner', SimpleSigner);
-  setContext('loansSdk', loansSdk);
-  setContext('toast', toast);
+  setContext('app', {
+    server,
+    SimpleSigner,
+    loansSdk,
+    toast,
+  });
 
   onMount(async () => {
     isLoading = true;
