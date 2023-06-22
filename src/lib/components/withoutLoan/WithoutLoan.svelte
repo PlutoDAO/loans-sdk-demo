@@ -4,7 +4,7 @@
   import ResultXdrSection from '../ResultXdrSection.svelte';
   import SignedXdrSection from '../SignedXdrSection.svelte';
   import SubmitBtn from '../SubmitBtn.svelte';
-  import { borrower, loanAmount } from '../verifyAccount/store';
+  import { borrower } from '../verifyAccount/store';
   import GetLoan from './GetLoan.svelte';
   import GetLoanIntentSnippet from './snippets/GetLoanIntentSnippet.svelte';
   import store from './store';
@@ -26,24 +26,29 @@
     throw new Error();
   }
 
+  async function getLoanXdr() {
+    const asset = new loansSdk.LoanAssetRequest(true);
+    const entryBalance = new loansSdk.BalanceDto(asset, $store.loanAmount);
+
+    return await loansSdk.getLoanIntent(server, $borrower.publicKey, entryBalance);
+  }
+
   async function handleGetLoan() {
     toast.loading('Fetching XDR...');
-    clearStores();
 
-    if (!$loanAmount) {
+    if (!$store.loanAmount) {
       toast.error('Loan amount is required.');
       return;
     }
 
     try {
-      const asset = new loansSdk.LoanAssetRequest(true);
-      const entryBalance = new loansSdk.BalanceDto(asset, `${$loanAmount}`);
-      $store.loanXdr = await loansSdk.getLoanIntent(server, $borrower.publicKey, entryBalance);
+      clearStores();
+      $store.loanXdr = await getLoanXdr();
       toast.success('Success!');
     } catch (e) {
       if (e instanceof Error) {
         const parsedError = JSON.parse(e.message);
-        $store.error = `Error status ${parsedError.status}: ${parsedError.detail}`;
+        toast.error(`Error status ${parsedError.status}: ${parsedError.detail}`);
       }
     }
   }
@@ -85,7 +90,6 @@
 
   function clearStores() {
     $store.loanXdr = '';
-    $store.error = '';
     $signedXdr = '';
   }
 </script>
