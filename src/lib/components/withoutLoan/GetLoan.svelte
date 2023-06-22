@@ -1,13 +1,13 @@
 <script lang="ts">
   import Input from '../Input.svelte';
   import SectionBody from '../SectionBody.svelte';
-  import { loanAmount } from '../verifyAccount/store';
+  import store from './store';
 
   export let balance: string;
 </script>
 
 <SectionBody title="Get a loan with XLM">
-  <Input slot="input-label" bind:value={$loanAmount} type={'number'} placeholder={'100'} />
+  <Input slot="input-label" bind:value={$store.loanAmount} type={'number'} placeholder={'100'} />
 
   <div slot="prev-input" class="loan-amount-container">
     <div class="account-balance-container" data-cy="account-balance">
