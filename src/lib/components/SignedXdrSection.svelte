@@ -1,6 +1,5 @@
 <script lang="ts">
   import { signedXdr } from '../services/simple-signer/store';
-  import Input from './Input.svelte';
   import SectionBody from './SectionBody.svelte';
 
   export let actionButtonText: string;
@@ -10,7 +9,7 @@
 </script>
 
 <SectionBody title="Signed Xdr">
-  <Input slot="input-label" bind:value={$signedXdr} type={'text'} placeholder={xdrPlaceholder} />
+  <input slot="input-label" bind:value={$signedXdr} type="text" placeholder={xdrPlaceholder} />
 
   <button
     disabled={!$signedXdr}

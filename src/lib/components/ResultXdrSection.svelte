@@ -1,7 +1,6 @@
 <script lang="ts">
   import CopyIcon from '../../assets/Copy.svelte';
   import { getShortenedText } from '../utils/utils';
-  import Input from './Input.svelte';
   import SectionBody from './SectionBody.svelte';
 
   export let resultXdr: string;
@@ -18,7 +17,7 @@
 </script>
 
 <SectionBody title="Result">
-  <Input slot="input-label" value={shortXdr} type={'text'} disabled={true} />
+  <input slot="input-label" value={shortXdr} type={'text'} disabled={true} />
 
   <button slot="input-button" class="copy-btn" on:click={copyXdrToClipboard}>
     <CopyIcon />

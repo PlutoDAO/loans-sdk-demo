@@ -1,5 +1,4 @@
 <script lang="ts">
-  import Input from '../Input.svelte';
   import SectionBody from '../SectionBody.svelte';
   import { loanAmount } from './store';
 
@@ -7,7 +6,7 @@
 </script>
 
 <SectionBody title="Get a loan with XLM">
-  <Input slot="input-label" bind:value={$loanAmount} type={'number'} placeholder={'100'} />
+  <input slot="input-label" bind:value={$loanAmount} type="number" placeholder={'100'} />
 
   <div slot="prev-input" class="loan-amount-container">
     <div class="account-balance-container" data-cy="account-balance">
