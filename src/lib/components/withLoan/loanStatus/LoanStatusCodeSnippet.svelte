@@ -22,6 +22,22 @@
   <Prism
     language="javascript"
     source={`
+// CHECK LOAN STATUS
+
+const server = 'testnet'; // 'testnet' | 'public'
+const borrower = 'GAIRISXKPLOWZBMFRPU5XRGUUX3VMA3ZEWKBM5MSNRU3CHV6P4PYZ74D';
+
+const loanStatus = await getLoanStatus(server, borrower);
+
+// WITHDRAW COLLATERAL (Only when loan paid itself)
+
+const server: ApiStellarNetwork  = 'testnet'; // 'testnet' | 'public'
+const borrower = 'GAIRISXKPLOWZBMFRPU5XRGUUX3VMA3ZEWKBM5MSNRU3CHV6P4PYZ74D';
+
+const withdrawCollateralIntentXDR = await getWithdrawCollateralIntent(server, borrower);
+
+// SETTLE DEBT
+
 const asset = new LoanAssetRequest(
   'pUSD',
   'GBMUBDMUOSN6LMB6X2YREGIFEJRXVYOVL6EV3LGRVPQ5KPJZO5E644I4',
