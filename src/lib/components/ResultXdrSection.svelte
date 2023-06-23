@@ -1,6 +1,6 @@
 <script lang="ts">
-  import CopyIcon from '../../assets/Copy.svelte';
-  import { copyToClipboard, getShortenedText } from '../utils/utils';
+  import { getShortenedText } from '../utils/utils';
+  import CopyBtn from './CopyBtn.svelte';
   import SectionBody from './SectionBody.svelte';
 
   export let resultXdr: string;
@@ -15,9 +15,7 @@
 <SectionBody title="Result">
   <input slot="input-label" value={shortXdr} type="text" disabled={true} />
 
-  <button slot="input-button" class="copy-btn" on:click={() => copyToClipboard(resultXdr)}>
-    <CopyIcon />
-  </button>
+  <CopyBtn slot="input-button" value={resultXdr} />
 
   <button disabled={!resultXdr} slot="post-input" on:click={handleOnSign} data-cy="sign-btn">
     Sign with Simple Signer
@@ -25,13 +23,6 @@
 </SectionBody>
 
 <style>
-  .copy-btn {
-    background: none;
-    width: 30px;
-    height: 30px;
-    display: flex;
-    align-items: center;
-  }
 
   button:disabled {
     opacity: 0.5;
