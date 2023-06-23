@@ -1,6 +1,6 @@
 <script lang="ts">
   import CopyIcon from '../../assets/Copy.svelte';
-  import { getShortenedText } from '../utils/utils';
+  import { copyToClipboard, getShortenedText } from '../utils/utils';
   import SectionBody from './SectionBody.svelte';
 
   export let resultXdr: string;
@@ -10,16 +10,12 @@
   $: if (resultXdr) {
     shortXdr = getShortenedText(resultXdr);
   }
-
-  function copyXdrToClipboard() {
-    navigator.clipboard.writeText(resultXdr);
-  }
 </script>
 
 <SectionBody title="Result">
   <input slot="input-label" value={shortXdr} type="text" disabled={true} />
 
-  <button slot="input-button" class="copy-btn" on:click={copyXdrToClipboard}>
+  <button slot="input-button" class="copy-btn" on:click={() => copyToClipboard(resultXdr)}>
     <CopyIcon />
   </button>
 

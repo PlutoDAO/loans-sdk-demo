@@ -6,7 +6,7 @@
   import SubmitBtn from '../SubmitBtn.svelte';
   import { borrower } from '../verifyAccount/store';
   import GetLoan from './GetLoan.svelte';
-  import GetLoanIntentSnippet from './snippets/GetLoanIntentSnippet.svelte';
+  import WithoutLoanSnippets from './snippets/WithoutLoanSnippets.svelte';
   import { isSendingTheLoan, loanAmount, loanXdr } from './store';
 
   const { loansSdk, server, toast, SimpleSigner } = getContext('appDependencies');
@@ -99,7 +99,7 @@
 
   <SignedXdrSection actionButtonText="Send loan" handleActionButtonClick={handleSendLoan} />
 
-  <GetLoanIntentSnippet />
+  <WithoutLoanSnippets />
 </div>
 
 <style>

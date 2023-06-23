@@ -2,7 +2,7 @@
   import { onMount } from 'svelte';
   import SettleLoan from './SettleLoan.svelte';
   import LoanStatus from './loanStatus/LoanStatus.svelte';
-  import LoanStatusCodeSnippet from './loanStatus/LoanStatusCodeSnippet.svelte';
+  import WithLoanSnippets from './snippets/WithLoanSnippets.svelte';
   import { loanStatus, isStatusLoading, hasLoanBeenPaid } from './loanStatus/store';
   import { error, unsignedXdr } from './store';
   import { getContext } from '../../services/context';
@@ -113,7 +113,7 @@
     handleActionButtonClick={handleSendXdr}
   />
 
-  <LoanStatusCodeSnippet />
+  <WithLoanSnippets />
 </div>
 
 <style>
