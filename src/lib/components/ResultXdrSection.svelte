@@ -21,11 +21,3 @@
     Sign with Simple Signer
   </button>
 </SectionBody>
-
-<style>
-
-  button:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
-</style>
