@@ -3,13 +3,13 @@
 
   import CopyIcon from '../../assets/Copy.svelte';
 
-  export let language: string = 'javascript';
+  export let language = 'javascript';
   export let snippet: string;
-  export let title: string = '';
 
   function copyToClipboard() {
     navigator.clipboard.writeText(snippet);
   }
+  export let title = '';
 </script>
 
 {#if title} <h3 class="snippet-title">{title}</h3> {/if}
