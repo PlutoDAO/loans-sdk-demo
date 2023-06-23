@@ -2,20 +2,17 @@
   import Prism from 'svelte-prism';
 
   import CopyIcon from '../../assets/Copy.svelte';
+  import { copyToClipboard } from '../utils/utils';
 
   export let language = 'javascript';
   export let snippet: string;
-
-  function copyToClipboard() {
-    navigator.clipboard.writeText(snippet);
-  }
   export let title = '';
 </script>
 
 {#if title} <h3 class="snippet-title">{title}</h3> {/if}
 <article class="snippet-container">
   <Prism language={language} source={snippet} />
-  <button class="copy-btn" on:click={copyToClipboard}>
+  <button class="copy-btn" on:click={() => copyToClipboard(snippet)}>
     <CopyIcon />
   </button>
 </article>
