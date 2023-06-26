@@ -12,7 +12,7 @@
   import SignedXdrSection from '../SignedXdrSection.svelte';
 
   const { loansSdk, Stellar, toast, SimpleSigner } = getContext('appDependencies');
-  const server = Stellar.getServer();
+  const server = Stellar.server;
   const pUSD = { code: 'pUSD', issuer: 'GAZXGXY3B3VYKCJTWKQCSPFFLW7OT6D5NVMT2ZYUEFM7WDOR5B2NGKWS' };
 
   async function handleGetLoanStatus() {

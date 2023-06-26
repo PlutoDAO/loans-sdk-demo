@@ -10,7 +10,7 @@
   import { isSendingTheLoan, loanAmount, loanXdr } from './store';
 
   const { loansSdk, Stellar, toast, SimpleSigner } = getContext('appDependencies');
-  const server = Stellar.getServer();
+  const server = Stellar.server;
   let balance = getAccountXlmBalance();
 
   function getAccountXlmBalance() {

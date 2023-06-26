@@ -2,9 +2,7 @@ import type { ApiStellarNetwork } from 'pluto-loans-sdk';
 import { Keypair } from 'stellar-sdk';
 
 export default class Stellar {
-  static getServer(): ApiStellarNetwork {
-    return 'testnet';
-  }
+  static server: ApiStellarNetwork = 'testnet';
 
   static generateRandomKeypair(): Keypair {
     return Keypair.random();
