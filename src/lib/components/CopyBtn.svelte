@@ -28,5 +28,11 @@
     height: 30px;
     display: flex;
     align-items: center;
+    filter: brightness(0);
+  }
+  @media (prefers-color-scheme: dark) {
+    .copy-btn {
+      filter: brightness(1);
+    }
   }
 </style>
