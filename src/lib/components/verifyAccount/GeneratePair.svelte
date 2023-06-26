@@ -18,7 +18,7 @@
       toast.success('Keypair generated!');
       pair = randomPair;
     } catch (e) {
-      console.log(e);
+      console.error(e);
       toast.error('Keypair generation failed!');
     } finally {
       isLoading = false;
