@@ -17,7 +17,8 @@
 <style>
   .snippet-title {
     margin-top: 1rem;
-    margin-bottom: 0;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
   }
   .snippet-container {
     position: relative;
@@ -28,18 +29,15 @@
     margin: 0;
     padding: 0;
   }
-  :global(pre[class*='language-']::after) {
-    content: '';
-    display: block;
-    padding: 25px;
-    background-color: inherit;
-  }
   :global(code[class*='language-']) {
     overflow-x: auto;
     padding: 1rem;
   }
   :global(.snippet-container .copy-btn) {
     position: absolute;
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(5px);
+    filter: brightness(1);
     top: 0;
     right: 0;
     margin: 10px;

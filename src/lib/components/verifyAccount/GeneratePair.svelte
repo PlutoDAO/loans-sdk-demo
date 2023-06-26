@@ -30,12 +30,13 @@
   <button disabled={isLoading} on:click={handleGeneratePair}>Generate random keypair</button>
 {:else}
   <section class="pair-container">
-    <h3>Copy the Secret Key and Connect with it</h3>
+    <h3>Copy the <span>Secret Key</span> and <span>Connect</span> with it</h3>
     <label>
       Public Key
       <input type="text" value={pair.publicKey()} readonly />
+      <CopyBtn value={pair.publicKey()} />
     </label>
-    <label class="secret-key">
+    <label>
       Secret Key
       <input type="text" value={pair.secret()} readonly />
       <CopyBtn value={pair.secret()} />
@@ -51,11 +52,15 @@
   }
   .pair-container h3 {
     margin: 0;
+    font-weight: 400;
   }
-  .pair-container .secret-key {
+  .pair-container h3 span {
+    font-weight: 600;
+  }
+  .pair-container label {
     position: relative;
   }
-  .pair-container .secret-key input {
+  .pair-container label input {
     padding-right: 30px;
   }
   :global(.pair-container .copy-btn) {
