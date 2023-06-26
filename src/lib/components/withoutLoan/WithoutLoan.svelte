@@ -9,7 +9,8 @@
   import WithoutLoanSnippets from './snippets/WithoutLoanSnippets.svelte';
   import { isSendingTheLoan, loanAmount, loanXdr } from './store';
 
-  const { loansSdk, server, toast, SimpleSigner } = getContext('appDependencies');
+  const { loansSdk, Stellar, toast, SimpleSigner } = getContext('appDependencies');
+  const server = Stellar.server;
   let balance = getAccountXlmBalance();
 
   function getAccountXlmBalance() {

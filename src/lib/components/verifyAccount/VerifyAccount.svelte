@@ -2,6 +2,7 @@
   import { getContext } from '../../services/context';
   import { publicKey } from '../../services/simple-signer/store';
   import { getShortenedText } from '../../utils/utils';
+  import GeneratePair from './GeneratePair.svelte';
   import { getBorrowerFromStellarAccount, removeBorrower } from './helpers/helpers';
   import { borrower, isUserConnected } from './store';
 
@@ -34,6 +35,7 @@
   {:else}
     <p>Verify your Stellar account with Simple Signer</p>
     <button class="submit-btn" on:click={() => SimpleSigner.connect()}> Connect </button>
+    <GeneratePair />
   {/if}
 </div>
 

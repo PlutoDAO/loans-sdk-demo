@@ -9,14 +9,14 @@
   import { isUserConnected, borrower as storeBorrower } from './lib/components/verifyAccount/store';
   import { setContext } from './lib/services/context';
   import SimpleSigner from './lib/services/simple-signer/SimpleSigner';
-  import server from './lib/services/stellar/server';
+  import Stellar from './lib/services/stellar/Stellar';
   import toast from './lib/services/toast';
   import Home from './routes/Home.svelte';
 
   let isLoading = false;
 
   setContext('appDependencies', {
-    server,
+    Stellar,
     SimpleSigner,
     loansSdk,
     toast,

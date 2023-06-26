@@ -1,8 +1,7 @@
 <script lang="ts">
   import Prism from 'svelte-prism';
 
-  import CopyIcon from '../../assets/Copy.svelte';
-  import { copyToClipboard } from '../utils/utils';
+  import CopyBtn from './CopyBtn.svelte';
 
   export let language = 'javascript';
   export let snippet: string;
@@ -12,15 +11,14 @@
 {#if title} <h3 class="snippet-title">{title}</h3> {/if}
 <article class="snippet-container">
   <Prism language={language} source={snippet} />
-  <button class="copy-btn" on:click={() => copyToClipboard(snippet)}>
-    <CopyIcon />
-  </button>
+  <CopyBtn value={snippet} />
 </article>
 
 <style>
   .snippet-title {
     margin-top: 1rem;
-    margin-bottom: 0;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
   }
   .snippet-container {
     position: relative;
@@ -31,25 +29,17 @@
     margin: 0;
     padding: 0;
   }
-  :global(pre[class*='language-']::after) {
-    content: '';
-    display: block;
-    padding: 25px;
-    background-color: inherit;
-  }
   :global(code[class*='language-']) {
     overflow-x: auto;
     padding: 1rem;
   }
-  .copy-btn {
+  :global(.snippet-container .copy-btn) {
     position: absolute;
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(5px);
+    filter: brightness(1);
     top: 0;
     right: 0;
     margin: 10px;
-    background: none;
-    width: 30px;
-    height: 30px;
-    display: flex;
-    align-items: center;
   }
 </style>
