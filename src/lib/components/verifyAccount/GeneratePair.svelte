@@ -9,7 +9,7 @@
   let isLoading = false;
   let pair: Keypair;
 
-  async function handleGeneratePair() {
+  async function handleGeneratePair(): Promise<void> {
     isLoading = true;
     toast.loading('Generating keypair...');
     try {

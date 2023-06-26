@@ -8,7 +8,7 @@ export default class Stellar {
     return Keypair.random();
   }
 
-  static async fundAccount(pair: Keypair) {
-    await fetch(`https://friendbot.stellar.org?addr=${encodeURIComponent(pair.publicKey())}`);
+  static async fundAccount(keypair: Keypair): Promise<void> {
+    await fetch(`https://friendbot.stellar.org?addr=${encodeURIComponent(keypair.publicKey())}`);
   }
 }

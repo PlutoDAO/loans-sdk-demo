@@ -6,7 +6,7 @@
   export let value: string;
   let isCopied = false;
 
-  function handleClick() {
+  function handleClick(): void {
     if (!value) return;
     copyToClipboard(value);
     isCopied = true;
