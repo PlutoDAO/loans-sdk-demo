@@ -4,7 +4,6 @@
   <div class="steps">
     <p>
       1. Connect your Stellar account through Simple Signer. <span class="light"
-        >(You can generate a random keypair if you don't have one)<span /></span
       >
     </p>
     <p>2. Set the loan amount you'd like to request.</p>
