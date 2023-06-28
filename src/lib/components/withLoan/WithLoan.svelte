@@ -2,7 +2,6 @@
   import { onMount } from 'svelte';
   import SettleLoan from './SettleLoan.svelte';
   import LoanStatus from './loanStatus/LoanStatus.svelte';
-  import WithLoanSnippets from './snippets/WithLoanSnippets.svelte';
   import { loanStatus, isStatusLoading, hasLoanBeenPaid } from './loanStatus/store';
   import { error, unsignedXdr } from './store';
   import { getContext } from '../../services/context';
@@ -113,8 +112,6 @@
     actionButtonText="Withdraw collateral"
     handleActionButtonClick={handleSendXdr}
   />
-
-  <WithLoanSnippets />
 </div>
 
 <style>
