@@ -15,6 +15,7 @@
   .container {
     text-align: center;
     margin: 30px auto;
+    padding: 0 20px;
   }
 
   .container h2 {
@@ -39,9 +40,10 @@
 
   .steps {
     display: grid;
-    gap: 10px;
+    gap: 20px;
     max-width: 500px;
     margin: 0 auto;
+    padding: 0 20px;
     font-size: 1.1rem;
     text-align: left;
   }
