@@ -43,6 +43,9 @@
     max-width: 500px;
     margin: 0 auto;
     font-size: 1.1rem;
+    text-align: left;
+  }
+
   .step-number {
     font-weight: 300;
   }
