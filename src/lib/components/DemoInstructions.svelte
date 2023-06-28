@@ -3,11 +3,11 @@
 
   <div class="steps">
     <p>
-      1. Connect your Stellar account through Simple Signer. <span class="light"
-      >
+      <span class="step-number">1. </span>Connect your Stellar account through Simple Signer. <br />
+      <span class="light">(You can generate a random keypair if you don't have one)</span>
     </p>
-    <p>2. Set the loan amount you'd like to request.</p>
-    <p>3. Settle your debt and withdraw your collateral</p>
+    <p><span class="step-number">2. </span>Set the loan amount you'd like to request.</p>
+    <p><span class="step-number">3. </span>Settle your debt and withdraw your collateral</p>
   </div>
 </section>
 
@@ -43,5 +43,7 @@
     max-width: 500px;
     margin: 0 auto;
     font-size: 1.1rem;
+  .step-number {
+    font-weight: 300;
   }
 </style>
