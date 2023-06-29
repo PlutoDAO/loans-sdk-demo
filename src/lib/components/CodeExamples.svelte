@@ -1,8 +1,7 @@
 <script lang="ts">
+  import { borrower, isUserConnected } from '../../lib/components/verifyAccount/store';
   import WithLoanSnippets from './withLoan/snippets/WithLoanSnippets.svelte';
   import WithoutLoanSnippets from './withoutLoan/snippets/WithoutLoanSnippets.svelte';
-
-  let activeIndex = 0;
 
   let items = [
     {
@@ -14,6 +13,9 @@
       component: WithLoanSnippets,
     },
   ];
+
+  let activeIndex = 0;
+  $: activeIndex = $isUserConnected && $borrower?.hasLoan ? 1 : 0;
 </script>
 
 <section class="container">
