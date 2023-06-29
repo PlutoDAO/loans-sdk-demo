@@ -5,7 +5,6 @@
 </script>
 
 <section class="snippets">
-  <h2>Code Examples</h2>
   <CheckLoanStatusSnippet />
   <WithdrawCollateralSnippet />
   <SettleDebtSnippet />
