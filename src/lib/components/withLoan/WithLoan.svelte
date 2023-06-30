@@ -12,7 +12,7 @@
 
   const { loansSdk, Stellar, toast, SimpleSigner } = getContext('appDependencies');
   const server = Stellar.server;
-  const pUSD = { code: 'pUSD', issuer: 'GAZXGXY3B3VYKCJTWKQCSPFFLW7OT6D5NVMT2ZYUEFM7WDOR5B2NGKWS' };
+  const pUSD = { code: 'pUSD', issuer: import.meta.env['VITE_PUSD_ISSUER_PUBLIC_KEY'] };
 
   async function handleGetLoanStatus() {
     toast.loading('Getting loan status...');
