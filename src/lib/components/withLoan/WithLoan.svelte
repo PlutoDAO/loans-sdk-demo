@@ -9,6 +9,7 @@
   import { signedXdr } from '../../services/simple-signer/store';
   import ResultXdrSection from '../ResultXdrSection.svelte';
   import SignedXdrSection from '../SignedXdrSection.svelte';
+  import SimulateSelfPayment from './SimulateSelfPayment.svelte';
 
   const { loansSdk, Stellar, toast, SimpleSigner } = getContext('appDependencies');
   const server = Stellar.server;
@@ -84,6 +85,33 @@
     }
   }
 
+  async function handleSelfPayment() {
+    const DEBT_AMOUNT = $loanStatus.remainingDebt * 1.1;
+    toast.loading('Simulating self payment...');
+
+    const vaultAccount = await Stellar.getVaultAccountFromBorrower($borrower.publicKey);
+
+    if (vaultAccount) {
+      try {
+        await Stellar.sendAssetFromIssuer(
+          'yUSDC',
+          import.meta.env['VITE_YUSDC_ISSUER_PUBLIC_KEY'],
+          import.meta.env['VITE_YUSDC_ISSUER_SECRET_KEY'],
+          DEBT_AMOUNT.toString(),
+          vaultAccount,
+        );
+        toast.success('Success!');
+
+        await handleGetLoanStatus();
+      } catch (e) {
+        console.error(e);
+        toast.error("Couldn't send asset");
+      }
+    } else {
+      toast.error("Couldn't find vault account");
+    }
+  }
+
   function handleOnSign() {
     SimpleSigner.sign($unsignedXdr);
   }
@@ -105,6 +133,8 @@
     text={$hasLoanBeenPaid ? 'Withdraw Collateral Intent' : 'Settle debt'}
     handleSettleDebt={handleSettleDebt}
   />
+
+  <SimulateSelfPayment show={!$hasLoanBeenPaid} handleSelfPayment={handleSelfPayment} />
 
   <ResultXdrSection resultXdr={$unsignedXdr} handleOnSign={handleOnSign} />
 
