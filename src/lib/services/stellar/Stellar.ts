@@ -43,4 +43,21 @@ export default class Stellar {
     tx.sign(Keypair.fromSecret(issuerSecretKey));
     await server.submitTransaction(tx);
   }
+
+  static async getVaultAccountFromBorrower(borrowerPublicKey: string): Promise<string | null> {
+    const server = new Server(Stellar.serverUrl);
+    const accounts = await server.accounts().forSigner(borrowerPublicKey).call();
+
+    const vaultAccount = accounts.records.find((account) => {
+      let hasZeroSignWeight = false;
+      account.signers.forEach((signer) => {
+        if (signer.key === account.id && signer.weight === 0) {
+          hasZeroSignWeight = true;
+        }
+      });
+      return hasZeroSignWeight;
+    });
+
+    return vaultAccount ? vaultAccount.id : null;
+  }
 }
