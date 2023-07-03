@@ -79,7 +79,7 @@ jobs:
           npm run test
   build-and-deploy:
     needs: [cypress-run, test]
-    if: ${{ github.event_name == 'push' }} && ${{ github.ref_name == 'main' }}
+    if: ${{ github.event_name == 'push' && github.ref_name == 'main' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
