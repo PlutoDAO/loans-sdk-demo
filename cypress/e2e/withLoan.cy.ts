@@ -17,6 +17,7 @@ describe('WithLoan', () => {
     cy.get('[data-cy="remaining-debt"]').as('remainingDebt');
     cy.get('[data-cy="vault-total-yusdc"]').as('userTotalYusdcInVault');
     cy.get('[data-cy="settle-loan-btn"]').as('settleLoanBtn');
+    cy.get('[data-cy="self-payment-btn"]').as('selfPaymentBtn');
   });
 
   it('should display the WithLoan component when a loan has debt', () => {
@@ -31,6 +32,7 @@ describe('WithLoan', () => {
     );
 
     cy.get('@settleLoanBtn').should('contain.text', 'Settle debt');
+    cy.get('@selfPaymentBtn').should('contain.text', 'Self Payment');
   });
 
   it('should display the WithLoan component when a loan has being paid', () => {
