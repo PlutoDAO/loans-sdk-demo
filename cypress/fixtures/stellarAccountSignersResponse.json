@@ -1,0 +1,29 @@
+{
+  "_embedded": {
+    "records": [
+      {
+        "id": "",
+        "account_id": "",
+        "sequence": "1158262485417984",
+        "subentry_count": 3,
+        "thresholds": {
+          "low_threshold": 2,
+          "med_threshold": 2,
+          "high_threshold": 2
+        },
+        "signers": [
+          {
+            "weight": 0,
+            "key": "",
+            "type": "ed25519_public_key"
+          },
+          {
+            "weight": 1,
+            "key": "",
+            "type": "ed25519_public_key"
+          }
+        ]
+      }
+    ]
+  }
+}

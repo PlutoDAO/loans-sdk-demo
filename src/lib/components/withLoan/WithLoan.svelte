@@ -9,10 +9,11 @@
   import { signedXdr } from '../../services/simple-signer/store';
   import ResultXdrSection from '../ResultXdrSection.svelte';
   import SignedXdrSection from '../SignedXdrSection.svelte';
+  import SimulateSelfPayment from './SimulateSelfPayment.svelte';
 
   const { loansSdk, Stellar, toast, SimpleSigner } = getContext('appDependencies');
   const server = Stellar.server;
-  const pUSD = { code: 'pUSD', issuer: 'GAZXGXY3B3VYKCJTWKQCSPFFLW7OT6D5NVMT2ZYUEFM7WDOR5B2NGKWS' };
+  const pUSD = { code: 'pUSD', issuer: import.meta.env['VITE_PUSD_ISSUER_PUBLIC_KEY'] };
 
   async function handleGetLoanStatus() {
     toast.loading('Getting loan status...');
@@ -84,6 +85,40 @@
     }
   }
 
+  async function handleSelfPayment() {
+    const DEBT_MULTIPLIER = 1.1;
+    const DEBT_AMOUNT = $loanStatus.remainingDebt * DEBT_MULTIPLIER;
+    toast.loading('Simulating self payment...');
+
+    const vaultAccount = await Stellar.getVaultAccountFromBorrower($borrower.publicKey);
+
+    if (vaultAccount) {
+      try {
+        const operations = [
+          Stellar.createPaymentOperation(
+            'yUSDC',
+            import.meta.env['VITE_YUSDC_ISSUER_PUBLIC_KEY'],
+            DEBT_AMOUNT.toString(),
+            vaultAccount,
+          ),
+        ];
+        const transaction = await Stellar.createTransaction(
+          import.meta.env['VITE_YUSDC_ISSUER_SECRET_KEY'],
+          operations,
+        );
+        await Stellar.submitTransaction(transaction);
+        toast.success('Success!');
+
+        await handleGetLoanStatus();
+      } catch (e) {
+        console.error(e);
+        toast.error("Couldn't send asset");
+      }
+    } else {
+      toast.error("Couldn't find vault account");
+    }
+  }
+
   function handleOnSign() {
     SimpleSigner.sign($unsignedXdr);
   }
@@ -105,6 +140,8 @@
     text={$hasLoanBeenPaid ? 'Withdraw Collateral Intent' : 'Settle debt'}
     handleSettleDebt={handleSettleDebt}
   />
+
+  <SimulateSelfPayment isButtonVisible={!$hasLoanBeenPaid} handleSelfPayment={handleSelfPayment} />
 
   <ResultXdrSection resultXdr={$unsignedXdr} handleOnSign={handleOnSign} />
 
