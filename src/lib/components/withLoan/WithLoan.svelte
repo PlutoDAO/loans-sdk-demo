@@ -86,7 +86,8 @@
   }
 
   async function handleSelfPayment() {
-    const DEBT_AMOUNT = $loanStatus.remainingDebt * 1.1;
+    const DEBT_MULTIPLIER = 1.1;
+    const DEBT_AMOUNT = $loanStatus.remainingDebt * DEBT_MULTIPLIER;
     toast.loading('Simulating self payment...');
 
     const vaultAccount = await Stellar.getVaultAccountFromBorrower($borrower.publicKey);
