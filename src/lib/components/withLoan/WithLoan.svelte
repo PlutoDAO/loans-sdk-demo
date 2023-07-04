@@ -94,13 +94,19 @@
 
     if (vaultAccount) {
       try {
-        await Stellar.sendAssetFromIssuer(
-          'yUSDC',
-          import.meta.env['VITE_YUSDC_ISSUER_PUBLIC_KEY'],
+        const operations = [
+          Stellar.createPaymentOperation(
+            'yUSDC',
+            import.meta.env['VITE_YUSDC_ISSUER_PUBLIC_KEY'],
+            DEBT_AMOUNT.toString(),
+            vaultAccount,
+          ),
+        ];
+        const transaction = await Stellar.createTransaction(
           import.meta.env['VITE_YUSDC_ISSUER_SECRET_KEY'],
-          DEBT_AMOUNT.toString(),
-          vaultAccount,
+          operations,
         );
+        await Stellar.submitTransaction(transaction);
         toast.success('Success!');
 
         await handleGetLoanStatus();

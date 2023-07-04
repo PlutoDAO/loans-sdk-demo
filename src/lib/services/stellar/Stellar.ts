@@ -1,5 +1,14 @@
 import type { ApiStellarNetwork } from 'pluto-loans-sdk';
-import { Asset, Keypair, Networks, Operation, Server, TransactionBuilder } from 'stellar-sdk';
+import {
+  Asset,
+  Keypair,
+  Networks,
+  Operation,
+  Server,
+  Transaction,
+  TransactionBuilder,
+  xdr,
+} from 'stellar-sdk';
 
 export default class Stellar {
   static server: ApiStellarNetwork = 'testnet';
@@ -14,34 +23,47 @@ export default class Stellar {
     await fetch(`https://friendbot.stellar.org?addr=${encodeURIComponent(keypair.publicKey())}`);
   }
 
-  static async sendAssetFromIssuer(
-    assetCode: string,
-    issuerPublicKey: string,
-    issuerSecretKey: string,
-    amount: string,
-    destinationPublicKey: string,
-  ): Promise<void> {
+  static async createTransaction(
+    accountSecretKey: string,
+    operations: xdr.Operation[],
+  ): Promise<Transaction> {
     const MAX_TIMEOUT = 30;
 
     const server = new Server(Stellar.serverUrl);
-    const issuerAccount = await server.loadAccount(issuerPublicKey);
+    const keypair = Keypair.fromSecret(accountSecretKey);
+    const account = await server.loadAccount(keypair.publicKey());
 
-    const tx = new TransactionBuilder(issuerAccount, {
+    const txBuilder = new TransactionBuilder(account, {
       fee: (await server.fetchBaseFee()).toString(),
       networkPassphrase: Stellar.networkPassphrase,
-    })
-      .addOperation(
-        Operation.payment({
-          destination: destinationPublicKey,
-          asset: new Asset(assetCode, issuerPublicKey),
-          amount,
-        }),
-      )
-      .setTimeout(MAX_TIMEOUT)
-      .build();
+    });
 
-    tx.sign(Keypair.fromSecret(issuerSecretKey));
-    await server.submitTransaction(tx);
+    for (const operation of operations) {
+      txBuilder.addOperation(operation);
+    }
+
+    txBuilder.setTimeout(MAX_TIMEOUT);
+    const tx = txBuilder.build();
+    tx.sign(keypair);
+    return tx;
+  }
+
+  static async submitTransaction(transaction: Transaction): Promise<void> {
+    const server = new Server(Stellar.serverUrl);
+    await server.submitTransaction(transaction);
+  }
+
+  static createPaymentOperation(
+    assetCode: string,
+    assetIssuerPublicKey: string,
+    amount: string,
+    destinationPublicKey: string,
+  ): xdr.Operation {
+    return Operation.payment({
+      destination: destinationPublicKey,
+      asset: new Asset(assetCode, assetIssuerPublicKey),
+      amount,
+    });
   }
 
   static async getVaultAccountFromBorrower(borrowerPublicKey: string): Promise<string | null> {
