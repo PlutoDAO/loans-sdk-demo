@@ -134,7 +134,7 @@
     handleSettleDebt={handleSettleDebt}
   />
 
-  <SimulateSelfPayment show={!$hasLoanBeenPaid} handleSelfPayment={handleSelfPayment} />
+  <SimulateSelfPayment isButtonVisible={!$hasLoanBeenPaid} handleSelfPayment={handleSelfPayment} />
 
   <ResultXdrSection resultXdr={$unsignedXdr} handleOnSign={handleOnSign} />
 
