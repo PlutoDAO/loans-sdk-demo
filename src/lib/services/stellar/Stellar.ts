@@ -59,6 +59,10 @@ export default class Stellar {
     amount: string,
     destinationPublicKey: string,
   ): xdr.Operation {
+    const MAX_DIGITS = 7;
+
+    amount = parseFloat(amount).toPrecision(MAX_DIGITS);
+
     return Operation.payment({
       destination: destinationPublicKey,
       asset: new Asset(assetCode, assetIssuerPublicKey),
